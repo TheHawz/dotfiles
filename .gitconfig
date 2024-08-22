@@ -1,0 +1,29 @@
+[push]
+	autoSetupRemote = true
+[alias]
+    a = add
+    aa = add --all
+    ap = add --patch
+    b = branch
+    ba = branch --all
+    br = branch --remote
+    ca = commit --amend
+    cm = commit -m
+    cam = commit -am
+	co = checkout
+    df = diff
+    dc = diff --cached
+    l = log --date=format:'%b %d, %Y' --pretty=format:'%C(yellow bold)%h%Creset%C(white)%d%Creset %s%n %C(blue)%aN (%cd)%n'
+    lg = log --graph --stat --pretty=format:'%C(yellow bold)%h%Creset%C(white)%d%Creset %s%n %C(blue)%aN (%cd)%n'
+    f = fetch
+    pl = pull
+    ps = push
+    psf = push --force-with-lease
+	s = status
+[core]
+	excludesfiles = /Users/pablo.losada/.gitignore_global
+[user]
+	name = Pablo Losada
+	email = pablo.losada@socialpoint.es
+[maintenance]
+	repo = /Users/pablo.losada/code/zynga/DataWorkflows
