@@ -140,3 +140,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+
+eval "$(zoxide init zsh --cmd cd)"
+eval "$(uv generate-shell-completion zsh)"
