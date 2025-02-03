@@ -1,1 +1,2 @@
 alias ls="ls -lsaG"
+alias tmux_sheet="open -n https://tmuxcheatsheet.com"

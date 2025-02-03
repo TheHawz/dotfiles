@@ -1,4 +1,5 @@
 {
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.9.5",
   "schemes" : [
     {
       "scrolling" : {
@@ -7,20 +8,57 @@
         }
       },
       "pointer" : {
-        "speed" : 0.1,
         "acceleration" : 0,
+        "speed" : 0.1,
         "disableAcceleration" : false
       },
       "if" : {
         "device" : {
-          "productName" : "Magic Mouse",
-          "serialNumber" : "0c-e4-41-1d-0d-5d",
           "vendorID" : "0x4c",
-          "productID" : "0x269",
-          "category" : "mouse"
+          "productName" : "Magic Mouse",
+          "category" : "mouse",
+          "serialNumber" : "0c-e4-41-1d-0d-5d",
+          "productID" : "0x269"
         }
       }
+    },
+    {
+      "scrolling" : {
+        "speed" : 0,
+        "distance" : 3,
+        "acceleration" : 1
+      },
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x8c",
+          "productName" : "Razer DeathAdder V2 Mini",
+          "vendorID" : "0x1532"
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true,
+        "acceleration" : 1
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "vendorID" : "0x413c",
+          "productName" : "Dell Universal Receiver",
+          "productID" : "0x2514",
+          "category" : "mouse"
+        }
+      },
+      "pointer" : {
+        "disableAcceleration" : true,
+        "acceleration" : 0.5
+      },
+      "scrolling" : {
+        "distance" : 3,
+        "acceleration" : 1,
+        "speed" : 0
+      }
     }
-  ],
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.9.5"
+  ]
 }
