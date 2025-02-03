@@ -27,7 +27,10 @@ map Q gq
 Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
-
+" Surround plugin
+Plug 'tpope/vim-surround'
+" Activate Which Key plugin
+set which-key
 
 "" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
 "" Map \r to the Reformat Code action
