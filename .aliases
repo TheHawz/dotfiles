@@ -1,2 +1,10 @@
-alias ls="ls -lsaG"
+alias ls="eza -al --header --git -T -L 1"
 alias tmux_sheet="open -n https://tmuxcheatsheet.com"
+alias gowsume=/Applications/gowsumed.app/Contents/MacOS/gowsume
+
+# tmux 
+alias tl='tmux ls'
+alias tn='tmux new -s'
+alias ta='tmux attach -t'
+alias tk='tmux kill-session -t'
+alias tka='tmux kill-server'

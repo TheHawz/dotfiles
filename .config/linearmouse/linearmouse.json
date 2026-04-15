@@ -1,33 +1,28 @@
 {
-  "$schema" : "https:\/\/schema.linearmouse.app\/0.9.5",
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.10.2",
   "schemes" : [
     {
-      "scrolling" : {
-        "reverse" : {
-          "vertical" : true
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x269",
+          "productName" : "Magic Mouse",
+          "serialNumber" : "0c-e4-41-1d-0d-5d",
+          "vendorID" : "0x4c"
         }
       },
       "pointer" : {
         "acceleration" : 0,
-        "speed" : 0.1,
-        "disableAcceleration" : false
+        "disableAcceleration" : false,
+        "speed" : 0.1
       },
-      "if" : {
-        "device" : {
-          "vendorID" : "0x4c",
-          "productName" : "Magic Mouse",
-          "category" : "mouse",
-          "serialNumber" : "0c-e4-41-1d-0d-5d",
-          "productID" : "0x269"
+      "scrolling" : {
+        "reverse" : {
+          "vertical" : true
         }
       }
     },
     {
-      "scrolling" : {
-        "speed" : 0,
-        "distance" : 3,
-        "acceleration" : 1
-      },
       "if" : {
         "device" : {
           "category" : "mouse",
@@ -37,27 +32,85 @@
         }
       },
       "pointer" : {
-        "disableAcceleration" : true,
-        "acceleration" : 1
+        "acceleration" : 0,
+        "disableAcceleration" : false,
+        "speed" : 0.12
+      },
+      "scrolling" : {
+        "acceleration" : 1,
+        "distance" : {
+          "horizontal" : 3,
+          "vertical" : "auto"
+        },
+        "speed" : 0
       }
     },
     {
       "if" : {
         "device" : {
-          "vendorID" : "0x413c",
-          "productName" : "Dell Universal Receiver",
+          "category" : "mouse",
           "productID" : "0x2514",
-          "category" : "mouse"
+          "productName" : "Dell Universal Receiver",
+          "vendorID" : "0x413c"
         }
       },
       "pointer" : {
-        "disableAcceleration" : true,
-        "acceleration" : 0.5
+        "acceleration" : 0.5,
+        "disableAcceleration" : true
       },
       "scrolling" : {
-        "distance" : 3,
         "acceleration" : 1,
+        "distance" : 3,
         "speed" : 0
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x269",
+          "productName" : "Magic Mouse de pablo.losada",
+          "serialNumber" : "0C:E4:41:1D:0D:5D",
+          "vendorID" : "0x4c"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0,
+        "disableAcceleration" : false,
+        "redirectsToScroll" : false,
+        "speed" : 0.1
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 0.62
+        },
+        "distance" : {
+          "vertical" : "auto"
+        },
+        "speed" : {
+          "vertical" : 0
+        }
+      }
+    },
+    {
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0x3026",
+          "productName" : "Dell Mouse MS5320W",
+          "vendorID" : "0x413c"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 0,
+        "disableAcceleration" : false,
+        "redirectsToScroll" : false,
+        "speed" : 0.0564
+      },
+      "scrolling" : {
+        "acceleration" : {
+          "vertical" : 1.08
+        }
       }
     }
   ]

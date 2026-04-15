@@ -24,6 +24,12 @@ alignment = 'left'
 newline = true
 
 [[blocks.segments]]
+type = "python"
+style = "plain"
+background = 'transparent'
+template = "  {{ .Venv }} "
+
+[[blocks.segments]]
 template = '{{ .Path }}'
 foreground = 'blue'
 background = 'transparent'

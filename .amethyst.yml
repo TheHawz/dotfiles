@@ -1,0 +1,193 @@
+# Amethyst - tiling window manager for macOS
+# https://github.com/ianyh/Amethyst
+
+# 3Column-Middle as default, with tall and fullscreen available
+layouts:
+  - center-master
+  - middle-wide
+  - tall
+  - fullscreen
+  - floating
+
+# ctrl as primary modifier
+mod1:
+  - control
+
+# ctrl + shift as secondary modifier
+mod2:
+  - control
+  - shift
+
+# Layout
+cycle-layout:
+  mod: mod1
+  key: t
+
+cycle-layout-backward:
+  mod: mod2
+  key: space
+
+# Resize main pane
+shrink-main:
+  mod: mod1
+  key: h
+
+expand-main:
+  mod: mod1
+  key: l
+
+# Main pane window count
+increase-main:
+  mod: mod1
+  key: ','
+
+decrease-main:
+  mod: mod1
+  key: '.'
+
+# Focus
+focus-ccw:
+  mod: mod1
+  key: j
+
+focus-cw:
+  mod: mod1
+  key: k
+
+focus-main:
+  mod: mod1
+  key: m
+
+# Focus screens
+focus-screen-ccw:
+  mod: mod1
+  key: p
+
+focus-screen-cw:
+  mod: mod1
+  key: n
+
+# Swap windows
+swap-ccw:
+  mod: mod2
+  key: j
+
+swap-cw:
+  mod: mod2
+  key: k
+
+swap-main:
+  mod: mod1
+  key: enter
+
+# Move window to other screen
+swap-screen-ccw:
+  mod: mod2
+  key: h
+
+swap-screen-cw:
+  mod: mod2
+  key: l
+
+# Throw window to space
+throw-space-1:
+  mod: mod2
+  key: '1'
+
+throw-space-2:
+  mod: mod2
+  key: '2'
+
+throw-space-3:
+  mod: mod2
+  key: '3'
+
+throw-space-4:
+  mod: mod2
+  key: '4'
+
+throw-space-5:
+  mod: mod2
+  key: '5'
+
+throw-space-6:
+  mod: mod2
+  key: '6'
+
+throw-space-7:
+  mod: mod2
+  key: '7'
+
+throw-space-8:
+  mod: mod2
+  key: '8'
+
+throw-space-9:
+  mod: mod2
+  key: '9'
+
+# Toggle float for current window
+toggle-float:
+  mod: mod2
+  key: t
+
+# Toggle tiling on/off
+toggle-tiling: false
+
+# Quick layout selection
+select-center-master-layout:
+  mod: mod1
+  key: a
+
+select-middle-wide-layout:
+  mod: mod1
+  key: 'q'
+
+select-tall-layout:
+  mod: mod1
+  key: s
+
+select-fullscreen-layout:
+  mod: mod1
+  key: d
+
+select-floating-layout:
+  mod: mod1
+  key: f
+
+# Relaunch
+relaunch-amethyst:
+  mod: mod2
+  key: z
+
+# Reevaluate windows
+reevaluate-windows:
+  mod: mod1
+  key: z
+
+# Gaps and margins
+window-margins: true
+window-margin-size: 8
+screen-padding-left: 8
+screen-padding-right: 8
+screen-padding-top: 48
+screen-padding-bottom: 8
+
+# Float system apps
+floating:
+  - com.apple.systempreferences
+  - com.apple.finder
+  - com.apple.calculator
+
+floating-is-blacklist: true
+
+# Behavior
+mouse-follows-focus: false
+focus-follows-mouse: false
+new-windows-to-main: false
+follow-space-thrown-windows: true
+enables-layout-hud: true
+enables-layout-hud-on-space-change: true
+restore-layouts-on-launch: true
+float-small-windows: true
+window-resize-step: 5

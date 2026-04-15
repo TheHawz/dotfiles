@@ -1,0 +1,29 @@
+[
+  {
+    "context": "vim_mode == normal",
+    "bindings": {
+      // Harpoon-like file navigation
+      "ctrl-h": "pane::ActivatePreviousItem",
+      "ctrl-l": "pane::ActivateNextItem",
+
+      // Quick file switching
+      "space space": "file_finder::Toggle",
+      "space p v": "project_panel::ToggleFocus",
+
+      // LSP shortcuts
+      "g d": "editor::GoToDefinition",
+      "g r": "editor::FindAllReferences",
+      "space r n": "editor::Rename",
+      "space c a": "editor::ToggleCodeActions",
+      // Git shortcuts
+      // "space g s": "editor::ToggleGitBlame",
+      // "space g d": "editor::ToggleGitDiff",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "bindings": {
+      "ctrl-space": "editor::ShowCompletions",
+    },
+  },
+]
