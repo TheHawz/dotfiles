@@ -1,0 +1,60 @@
+layout {
+    default_tab_template {
+        children
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "{mode} #[fg=#8AADF4,bold]{session}"
+                format_center "{tabs}"
+                format_right  "{command_git_branch} {datetime}"
+                format_space  ""
+
+                border_enabled  "false"
+                border_char     "─"
+                border_format   "#[fg=#6E738D]{char}"
+                border_position "top"
+
+                hide_frame_for_single_pane "false"
+
+                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] NORMAL "
+                mode_locked        "#[bg=#A6DA95,fg=#24273A,bold] LOCKED "
+                mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANE "
+                mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB "
+                mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL "
+                mode_enter_search  "#[bg=#ED8796,fg=#24273A,bold] SEARCH "
+                mode_search        "#[bg=#ED8796,fg=#24273A,bold] SEARCH "
+                mode_resize        "#[bg=#F5A97F,fg=#24273A,bold] RESIZE "
+                mode_move          "#[bg=#F5A97F,fg=#24273A,bold] MOVE "
+                mode_session       "#[bg=#EED49F,fg=#24273A,bold] SESSION "
+                mode_tmux          "#[bg=#F5A97F,fg=#24273A,bold] TMUX "
+                mode_rename_tab    "#[bg=#F5A97F,fg=#24273A,bold] RENAME "
+                mode_rename_pane   "#[bg=#F5A97F,fg=#24273A,bold] RENAME "
+
+                tab_normal              "#[fg=#6E738D] {name} "
+                tab_normal_fullscreen   "#[fg=#6E738D] {name} [] "
+                tab_normal_sync         "#[fg=#6E738D] {name} <> "
+                tab_active              "#[fg=#CAD3F5,bold,italic] {name} "
+                tab_active_fullscreen   "#[fg=#CAD3F5,bold,italic] {name} [] "
+                tab_active_sync         "#[fg=#CAD3F5,bold,italic] {name} <> "
+
+                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+                command_git_branch_format      "#[fg=#C6A0F6]  {stdout} "
+                command_git_branch_interval    "10"
+                command_git_branch_rendermode  "static"
+
+                datetime        "#[fg=#6E738D,bold] {format} "
+                datetime_format "%H:%M"
+                datetime_timezone "Europe/Madrid"
+            }
+        }
+    }
+
+    tab name="editor" focus=true {
+        pane split_direction="vertical" {
+            pane name="editor" focus=true size="70%"
+            pane split_direction="horizontal" {
+                pane name="terminal"
+                pane name="git/tests"
+            }
+        }
+    }
+}
