@@ -3,9 +3,13 @@ layout {
         children
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-                format_left   "{mode} #[fg=#8AADF4,bold]{session}"
-                format_center "{tabs}"
-                format_right  "{command_git_branch} {datetime}"
+                // Las pestañas NO pueden ir en format_center: zjstatus necesita
+                // centrarlas, así que format_left queda limitado a (ancho-tabs)/2
+                // y por encima de eso deja de dibujar la barra entera. Con las
+                // pestañas a la derecha, format_left dispone de casi todo el ancho.
+                format_left   "{mode}"
+                format_center ""
+                format_right  "{tabs}#[fg=#8AADF4,bold] {session} "
                 format_space  ""
 
                 border_enabled  "false"
@@ -15,21 +19,24 @@ layout {
 
                 hide_frame_for_single_pane "false"
 
-                // Modos con líneas de pista mostrando atajos disponibles
+                // Pistas por modo. Presupuesto: 40 caracteres visibles como
+                // máximo (sin contar los códigos #[...]). Por encima de eso la
+                // barra desaparece con 3 pestañas abiertas a 80 columnas.
+                // La referencia completa está en Alt+? (cheatsheet.md).
                 mode_locked        "#[bg=#A6DA95,fg=#24273A,bold] LOCKED  ^g menú "
-                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ  p panel · t tab · r resize · m mover · s scroll · o sesión · ? ayuda · g/esc "
-                mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANE  n nuevo · x cerrar · f full · w flotante · e embed/flot · z marcos · c rename · hjkl "
-                mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB  hl ant/sig · n nuevo · x cerrar · r rename · Tab últ · s sync · 1-9 saltar "
-                mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL  jk arriba/abajo · d/u media página · e editar · / buscar "
-                mode_enter_search  "#[bg=#ED8796,fg=#24273A,bold] SEARCH  Enter confirmar · Esc cancelar "
-                mode_search        "#[bg=#ED8796,fg=#24273A,bold] SEARCH  n/N siguiente/anterior · jk navegar "
-                mode_resize        "#[bg=#F5A97F,fg=#24273A,bold] RESIZE  hjkl aumentar · HJKL disminuir · = + - tamaño "
-                mode_move          "#[bg=#F5A97F,fg=#24273A,bold] MOVE  hjkl/flechas mover panel "
-                mode_session       "#[bg=#EED49F,fg=#24273A,bold] SESSION  d detach · w manager · c config · p plugins · q quit "
+                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ  p t r m s o · ? ayuda · esc "
+                mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANEL  hjkl·n nuevo·x cierra·f full "
+                mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB  hl·n nueva·x cierra·r renombra "
+                mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL  jk·du media·/ busca·e edita "
+                mode_enter_search  "#[bg=#ED8796,fg=#24273A,bold] BUSCAR  Enter acepta · Esc cancela "
+                mode_search        "#[bg=#ED8796,fg=#24273A,bold] BUSCAR  nN resultados · jk mueve "
+                mode_resize        "#[bg=#F5A97F,fg=#24273A,bold] TAMAÑO  hjkl mayor · HJKL menor "
+                mode_move          "#[bg=#F5A97F,fg=#24273A,bold] MOVER  hjkl mueve el panel "
+                mode_session       "#[bg=#EED49F,fg=#24273A,bold] SESIÓN  d detach·w lista·q salir "
                 mode_tmux          "#[bg=#F5A97F,fg=#24273A,bold] TMUX "
                 mode_prompt        "#[bg=#6E738D,fg=#24273A,bold] PROMPT "
-                mode_rename_tab    "#[bg=#F5A97F,fg=#24273A,bold] RENAME TAB  Esc cancelar · Enter confirmar "
-                mode_rename_pane   "#[bg=#F5A97F,fg=#24273A,bold] RENAME PANE  Esc cancelar · Enter confirmar "
+                mode_rename_tab    "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA TAB  Enter·Esc cancela "
+                mode_rename_pane   "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA PANEL  Enter·Esc cancela "
 
                 tab_normal              "#[fg=#6E738D] {name} "
                 tab_normal_fullscreen   "#[fg=#6E738D] {name} [] "
@@ -37,15 +44,6 @@ layout {
                 tab_active              "#[fg=#CAD3F5,bold,italic] {name} "
                 tab_active_fullscreen   "#[fg=#CAD3F5,bold,italic] {name} [] "
                 tab_active_sync         "#[fg=#CAD3F5,bold,italic] {name} <> "
-
-                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
-                command_git_branch_format      "#[fg=#C6A0F6]  {stdout} "
-                command_git_branch_interval    "10"
-                command_git_branch_rendermode  "static"
-
-                datetime        "#[fg=#6E738D,bold] {format} "
-                datetime_format "%H:%M"
-                datetime_timezone "Europe/Madrid"
             }
         }
     }
