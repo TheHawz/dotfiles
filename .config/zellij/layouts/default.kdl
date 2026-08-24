@@ -1,15 +1,20 @@
 layout {
     default_tab_template {
         children
+
+        // ── Fila 1: barra clásica ─────────────────────────────────────────
+        // Badge de modo a la izquierda, pestañas CENTRADAS, git y reloj
+        // a la derecha.
+        // Ojo: zjstatus tiene que centrar format_center, así que cada lado
+        // está limitado a (ancho - pestañas)/2 = 28 caracteres a 80 columnas
+        // con 3 pestañas. Por eso aquí solo va el badge corto, y por eso el
+        // nombre de sesión no está: con nombres largos tiraba la fila entera.
+        // Las pistas largas viven en la fila 2, que no tiene centro.
         pane size=1 borderless=true {
             plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
-                // Las pestañas NO pueden ir en format_center: zjstatus necesita
-                // centrarlas, así que format_left queda limitado a (ancho-tabs)/2
-                // y por encima de eso deja de dibujar la barra entera. Con las
-                // pestañas a la derecha, format_left dispone de casi todo el ancho.
                 format_left   "{mode}"
-                format_center ""
-                format_right  "{tabs}#[fg=#8AADF4,bold] {session} "
+                format_center "{tabs}"
+                format_right  "{command_git_branch} {datetime}"
                 format_space  ""
 
                 border_enabled  "false"
@@ -19,24 +24,20 @@ layout {
 
                 hide_frame_for_single_pane "false"
 
-                // Pistas por modo. Presupuesto: 40 caracteres visibles como
-                // máximo (sin contar los códigos #[...]). Por encima de eso la
-                // barra desaparece con 3 pestañas abiertas a 80 columnas.
-                // La referencia completa está en Ctrl+g a (cheatsheet.md).
-                mode_locked        "#[bg=#A6DA95,fg=#24273A,bold] LOCKED  ^g menú "
-                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ  p t r m s o · a ayuda · esc "
-                mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANEL  hjkl·n nuevo·x cierra·f full "
-                mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB  hl·n nueva·x cierra·r renombra "
-                mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL  jk·du media·/ busca·e edita "
-                mode_enter_search  "#[bg=#ED8796,fg=#24273A,bold] BUSCAR  Enter acepta · Esc cancela "
-                mode_search        "#[bg=#ED8796,fg=#24273A,bold] BUSCAR  nN resultados · jk mueve "
-                mode_resize        "#[bg=#F5A97F,fg=#24273A,bold] TAMAÑO  hjkl mayor · HJKL menor "
-                mode_move          "#[bg=#F5A97F,fg=#24273A,bold] MOVER  hjkl mueve el panel "
-                mode_session       "#[bg=#EED49F,fg=#24273A,bold] SESIÓN  d detach·w lista·q salir "
+                mode_locked        "#[bg=#A6DA95,fg=#24273A,bold] LOCKED "
+                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ "
+                mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANEL "
+                mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB "
+                mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL "
+                mode_enter_search  "#[bg=#ED8796,fg=#24273A,bold] BUSCAR "
+                mode_search        "#[bg=#ED8796,fg=#24273A,bold] BUSCAR "
+                mode_resize        "#[bg=#F5A97F,fg=#24273A,bold] TAMAÑO "
+                mode_move          "#[bg=#F5A97F,fg=#24273A,bold] MOVER "
+                mode_session       "#[bg=#EED49F,fg=#24273A,bold] SESIÓN "
                 mode_tmux          "#[bg=#F5A97F,fg=#24273A,bold] TMUX "
                 mode_prompt        "#[bg=#6E738D,fg=#24273A,bold] PROMPT "
-                mode_rename_tab    "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA TAB  Enter·Esc cancela "
-                mode_rename_pane   "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA PANEL  Enter·Esc cancela "
+                mode_rename_tab    "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA TAB "
+                mode_rename_pane   "#[bg=#F5A97F,fg=#24273A,bold] RENOMBRA PANEL "
 
                 tab_normal              "#[fg=#6E738D] {name} "
                 tab_normal_fullscreen   "#[fg=#6E738D] {name} [] "
@@ -44,6 +45,46 @@ layout {
                 tab_active              "#[fg=#CAD3F5,bold,italic] {name} "
                 tab_active_fullscreen   "#[fg=#CAD3F5,bold,italic] {name} [] "
                 tab_active_sync         "#[fg=#CAD3F5,bold,italic] {name} <> "
+
+                command_git_branch_command     "git rev-parse --abbrev-ref HEAD"
+                command_git_branch_format      "#[fg=#C6A0F6]  {stdout} "
+                command_git_branch_interval    "10"
+                command_git_branch_rendermode  "static"
+
+                datetime        "#[fg=#6E738D,bold] {format} "
+                datetime_format "%H:%M"
+                datetime_timezone "Europe/Madrid"
+            }
+        }
+
+        // ── Fila 2: pistas del modo activo ────────────────────────────────
+        // Segunda instancia de zjstatus. Solo usa format_left, con center y
+        // right vacíos, así que dispone del ancho completo. Presupuesto: 76
+        // caracteres visibles para que entre a 80 columnas.
+        pane size=1 borderless=true {
+            plugin location="file:~/.config/zellij/plugins/zjstatus.wasm" {
+                format_left   "{mode}"
+                format_center ""
+                format_right  ""
+                format_space  ""
+
+                border_enabled  "false"
+                hide_frame_for_single_pane "false"
+
+                mode_locked        "#[fg=#6E738D] ^g abre el menú · Alt+hjkl foco · Alt+HJKL mueve · Alt+z zoom "
+                mode_normal        "#[fg=#CAD3F5] p panel · t tab · r tamaño · m mover · s scroll · o sesión · a ayuda · esc "
+                mode_pane          "#[fg=#CAD3F5] hjkl foco · n nuevo · x cierra · f full · w flot · e embed · z marcos "
+                mode_tab           "#[fg=#CAD3F5] hl navega · n nueva · x cierra · r renombra · s sync · 1-9 salta "
+                mode_scroll        "#[fg=#CAD3F5] jk línea · du media página · PgUp/PgDn · e edita en nvim · / busca "
+                mode_enter_search  "#[fg=#CAD3F5] escribe el patrón · Enter acepta · Esc cancela "
+                mode_search        "#[fg=#CAD3F5] n siguiente · N anterior · jk línea · du media página · Esc sale "
+                mode_resize        "#[fg=#CAD3F5] hjkl agranda · HJKL encoge · = + agranda · - encoge · esc sale "
+                mode_move          "#[fg=#CAD3F5] hjkl mueve el panel · esc sale "
+                mode_session       "#[fg=#CAD3F5] d detach · w sesiones · c config · p plugins · q salir de zellij "
+                mode_tmux          "#[fg=#6E738D] modo tmux "
+                mode_prompt        "#[fg=#6E738D] prompt "
+                mode_rename_tab    "#[fg=#CAD3F5] escribe el nombre · Enter acepta · Esc cancela "
+                mode_rename_pane   "#[fg=#CAD3F5] escribe el nombre · Enter acepta · Esc cancela "
             }
         }
     }
