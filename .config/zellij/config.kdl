@@ -28,8 +28,8 @@ keybinds clear-defaults=true {
         bind "Alt J" { MovePane "Down"; }
         bind "Alt K" { MovePane "Up"; }
         bind "Alt L" { MovePane "Right"; }
-        bind "Alt [" { GoToPreviousTab; }
-        bind "Alt ]" { GoToNextTab; }
+        bind "Shift Left" { GoToPreviousTab; }
+        bind "Shift Right" { GoToNextTab; }
         bind "Alt 1" { GoToTab 1; }
         bind "Alt 2" { GoToTab 2; }
         bind "Alt 3" { GoToTab 3; }
@@ -42,15 +42,6 @@ keybinds clear-defaults=true {
         bind "Alt Enter" { NewPane; }
         bind "Alt z" { ToggleFocusFullscreen; }
         bind "Alt Space" { ToggleFloatingPanes; }
-        bind "Alt =" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
-        bind "Alt ?" {
-            Run "bash" "-c" "glow -p ~/.config/zellij/cheatsheet.md" {
-                floating true
-                name "keys"
-                close_on_exit true
-            }
-        }
     }
 
     // === MENÚ NORMAL ===
@@ -68,8 +59,9 @@ keybinds clear-defaults=true {
         bind "s" { SwitchToMode "Scroll"; }
         bind "o" { SwitchToMode "Session"; }
 
-        // Ayuda (cheatsheet) — también disponible como "Alt ?" en todos los modos
-        bind "?" {
+        // Ayuda (cheatsheet). "a" es tecla directa en teclado es_ES;
+        // "?" se mantiene como alias (allí es Shift+').
+        bind "a" "?" {
             Run "bash" "-c" "glow -p ~/.config/zellij/cheatsheet.md" {
                 floating true
                 name "keys"
@@ -303,8 +295,8 @@ keybinds clear-defaults=true {
         bind "Alt L" { MovePane "Right"; }
 
         // Navegar tabs
-        bind "Alt [" { GoToPreviousTab; }
-        bind "Alt ]" { GoToNextTab; }
+        bind "Shift Left" { GoToPreviousTab; }
+        bind "Shift Right" { GoToNextTab; }
 
         // Saltar a tab específico
         bind "Alt 1" { GoToTab 1; }
@@ -321,20 +313,11 @@ keybinds clear-defaults=true {
         bind "Alt Enter" { NewPane; }
         bind "Alt z" { ToggleFocusFullscreen; }
         bind "Alt Space" { ToggleFloatingPanes; }
-        bind "Alt =" { Resize "Increase"; }
-        bind "Alt -" { Resize "Decrease"; }
 
         // Ayuda (cheatsheet), confirmado con `zellij setup --check`: la acción
         // Run SÍ existe en 0.44.1. No cambia de modo (igual que el resto de
         // este bloque): puedes abrirla desde cualquier sitio sin perder tu
         // sitio en el menú.
-        bind "Alt ?" {
-            Run "bash" "-c" "glow -p ~/.config/zellij/cheatsheet.md" {
-                floating true
-                name "keys"
-                close_on_exit true
-            }
-        }
     }
 }
 

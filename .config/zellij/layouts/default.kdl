@@ -22,9 +22,9 @@ layout {
                 // Pistas por modo. Presupuesto: 40 caracteres visibles como
                 // máximo (sin contar los códigos #[...]). Por encima de eso la
                 // barra desaparece con 3 pestañas abiertas a 80 columnas.
-                // La referencia completa está en Alt+? (cheatsheet.md).
+                // La referencia completa está en Ctrl+g a (cheatsheet.md).
                 mode_locked        "#[bg=#A6DA95,fg=#24273A,bold] LOCKED  ^g menú "
-                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ  p t r m s o · ? ayuda · esc "
+                mode_normal        "#[bg=#8AADF4,fg=#24273A,bold] MENÚ  p t r m s o · a ayuda · esc "
                 mode_pane          "#[bg=#C6A0F6,fg=#24273A,bold] PANEL  hjkl·n nuevo·x cierra·f full "
                 mode_tab           "#[bg=#F5A97F,fg=#24273A,bold] TAB  hl·n nueva·x cierra·r renombra "
                 mode_scroll        "#[bg=#EED49F,fg=#24273A,bold] SCROLL  jk·du media·/ busca·e edita "

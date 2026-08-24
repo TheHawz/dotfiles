@@ -9,13 +9,11 @@ puedas pulsar la misma tecla varias veces seguidas; sal de ellos con `g` o
 ## Acceso rápido Alt (disponible siempre, incluso en locked)
 - `Alt h/j/k/l` — Navegar paneles
 - `Alt H/J/K/L` — Mover panel
-- `Alt [ / Alt ]` — Tab anterior/siguiente
+- `Shift ← / Shift →` — Tab anterior/siguiente
 - `Alt 1-9` — Saltar a tab
 - `Alt Enter` — Nuevo panel
 - `Alt z` — Fullscreen/normal
 - `Alt Space` — Toggle flotante
-- `Alt = / Alt -` — Aumentar/disminuir tamaño
-- `Alt ?` — Esta ayuda
 
 Ghostty traduce `Option+←/→` a `ESC b` / `ESC f`, o sea `Alt+b` y `Alt+f`.
 Zellij no puede distinguirlos del salto de palabra de zsh, así que esas dos
@@ -30,7 +28,7 @@ teclas se quedan libres a propósito y no hay `Alt+←/→` para mover el foco
 - `m` — Modo mover
 - `s` — Modo scroll
 - `o` — Modo sesión
-- `?` — Ayuda
+- `a` / `?` — Esta ayuda
 
 ## Modo panel (p) — un solo golpe, vuelve a locked
 - `hjkl` / flechas — Navegar
