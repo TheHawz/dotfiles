@@ -17,6 +17,11 @@ puedas pulsar la misma tecla varias veces seguidas; sal de ellos con `g` o
 - `Alt = / Alt -` — Aumentar/disminuir tamaño
 - `Alt ?` — Esta ayuda
 
+Ghostty traduce `Option+←/→` a `ESC b` / `ESC f`, o sea `Alt+b` y `Alt+f`.
+Zellij no puede distinguirlos del salto de palabra de zsh, así que esas dos
+teclas se quedan libres a propósito y no hay `Alt+←/→` para mover el foco
+(usa `Alt+h/l`). `Alt+↑/↓` sí funcionan: Ghostty no los reescribe.
+
 ## Menú (Ctrl+g)
 - `g` / `Esc` — Volver a bloqueado
 - `p` — Modo panel

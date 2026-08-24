@@ -22,10 +22,8 @@ keybinds clear-defaults=true {
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
         bind "Alt l" { MoveFocus "Right"; }
-        bind "Alt Left" { MoveFocus "Left"; }
         bind "Alt Down" { MoveFocus "Down"; }
         bind "Alt Up" { MoveFocus "Up"; }
-        bind "Alt Right" { MoveFocus "Right"; }
         bind "Alt H" { MovePane "Left"; }
         bind "Alt J" { MovePane "Down"; }
         bind "Alt K" { MovePane "Up"; }
@@ -295,10 +293,8 @@ keybinds clear-defaults=true {
         bind "Alt j" { MoveFocus "Down"; }
         bind "Alt k" { MoveFocus "Up"; }
         bind "Alt l" { MoveFocus "Right"; }
-        bind "Alt Left" { MoveFocus "Left"; }
         bind "Alt Down" { MoveFocus "Down"; }
         bind "Alt Up" { MoveFocus "Up"; }
-        bind "Alt Right" { MoveFocus "Right"; }
 
         // Mover panel actual
         bind "Alt H" { MovePane "Left"; }
