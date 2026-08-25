@@ -1,187 +1,125 @@
-# Amethyst - tiling window manager for macOS
-# https://github.com/ianyh/Amethyst
-
-# 3Column-Middle as default, with tall and fullscreen available
 layouts:
-  - center-master
-  - middle-wide
   - tall
-  - fullscreen
+  - center-master
   - floating
 
-# ctrl as primary modifier
 mod1:
   - control
-
-# ctrl + shift as secondary modifier
-mod2:
-  - control
   - shift
-
-# Layout
-cycle-layout:
-  mod: mod1
-  key: t
-
-cycle-layout-backward:
-  mod: mod2
-  key: space
-
-# Resize main pane
-shrink-main:
-  mod: mod1
-  key: h
-
-expand-main:
-  mod: mod1
-  key: l
-
-# Main pane window count
-increase-main:
-  mod: mod1
-  key: ','
-
-decrease-main:
-  mod: mod1
-  key: '.'
 
 # Focus
 focus-ccw:
   mod: mod1
-  key: j
+  key: left
 
 focus-cw:
   mod: mod1
-  key: k
+  key: right
 
-focus-main:
-  mod: mod1
-  key: m
-
-# Focus screens
-focus-screen-ccw:
-  mod: mod1
-  key: p
-
-focus-screen-cw:
-  mod: mod1
-  key: n
-
-# Swap windows
+# Swap
 swap-ccw:
-  mod: mod2
-  key: j
+  mod: mod1
+  key: down
 
 swap-cw:
-  mod: mod2
-  key: k
+  mod: mod1
+  key: up
 
 swap-main:
   mod: mod1
   key: enter
 
-# Move window to other screen
-swap-screen-ccw:
-  mod: mod2
-  key: h
+# Resize
+shrink-main:
+  mod: mod1
+  key: ','
 
-swap-screen-cw:
-  mod: mod2
-  key: l
+expand-main:
+  mod: mod1
+  key: '.'
 
-# Throw window to space
-throw-space-1:
-  mod: mod2
-  key: '1'
+# Layout
+cycle-layout:
+  mod: mod1
+  key: space
 
-throw-space-2:
-  mod: mod2
-  key: '2'
-
-throw-space-3:
-  mod: mod2
-  key: '3'
-
-throw-space-4:
-  mod: mod2
-  key: '4'
-
-throw-space-5:
-  mod: mod2
-  key: '5'
-
-throw-space-6:
-  mod: mod2
-  key: '6'
-
-throw-space-7:
-  mod: mod2
-  key: '7'
-
-throw-space-8:
-  mod: mod2
-  key: '8'
-
-throw-space-9:
-  mod: mod2
-  key: '9'
-
-# Toggle float for current window
 toggle-float:
-  mod: mod2
-  key: t
-
-# Toggle tiling on/off
-toggle-tiling: false
-
-# Quick layout selection
-select-center-master-layout:
-  mod: mod1
-  key: a
-
-select-middle-wide-layout:
-  mod: mod1
-  key: 'q'
-
-select-tall-layout:
-  mod: mod1
-  key: s
-
-select-fullscreen-layout:
-  mod: mod1
-  key: d
-
-select-floating-layout:
   mod: mod1
   key: f
 
-# Relaunch
-relaunch-amethyst:
-  mod: mod2
-  key: z
-
-# Reevaluate windows
-reevaluate-windows:
+# Throw to space
+throw-space-1:
   mod: mod1
-  key: z
+  key: '1'
 
-# Gaps and margins
+throw-space-2:
+  mod: mod1
+  key: '2'
+
+throw-space-3:
+  mod: mod1
+  key: '3'
+
+throw-space-4:
+  mod: mod1
+  key: '4'
+
+throw-space-5:
+  mod: mod1
+  key: '5'
+
+throw-space-6:
+  mod: mod1
+  key: '6'
+
+throw-space-7:
+  mod: mod1
+  key: '7'
+
+throw-space-8:
+  mod: mod1
+  key: '8'
+
+throw-space-9:
+  mod: mod1
+  key: '9'
+
+# Disable defaults that conflict
+increase-main: false
+decrease-main: false
+
+# Disable everything else
+focus-main: false
+focus-screen-ccw: false
+focus-screen-cw: false
+swap-screen-ccw: false
+swap-screen-cw: false
+toggle-tiling: false
+reevaluate-windows: false
+relaunch-amethyst: false
+select-tall-layout: false
+select-fullscreen-layout: false
+select-floating-layout: false
+
 window-margins: true
 window-margin-size: 8
-screen-padding-left: 8
-screen-padding-right: 8
-screen-padding-top: 48
-screen-padding-bottom: 8
+screen-padding-left: 0
+screen-padding-right: 0
+screen-padding-top: 25
+screen-padding-bottom: 0
+disable-padding-on-builtin-display: true
 
-# Float system apps
+floating-is-blacklist: false
 floating:
-  - com.apple.systempreferences
-  - com.apple.finder
-  - com.apple.calculator
+  - md.obsidian
+  - org.mozilla.firefox
+  - com.google.Chrome
+  - com.tinyspeck.slackmacgap
+  - com.jetbrains.datagrip
+  - com.jetbrains.pycharm
+  - com.mitchellh.ghostty
+  - com.spotify.client
 
-floating-is-blacklist: true
-
-# Behavior
 mouse-follows-focus: false
 focus-follows-mouse: false
 new-windows-to-main: false
