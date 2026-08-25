@@ -1,78 +1,83 @@
-# Atajos de Zellij
+# Zellij keybindings
 
-Nota sobre los sub-modos del menú (`Ctrl+g`): `pane`, `tab` y `session`
-vuelven a `locked` automáticamente tras cada acción (son de "un solo golpe").
-`resize`, `move`, `scroll` y `search` en cambio se quedan abiertos para que
-puedas pulsar la misma tecla varias veces seguidas; sal de ellos con `g` o
-`Esc`.
+Zellij captures exactly one Ctrl key: `Ctrl+g`. Everything else falls through
+to nvim and the shell.
 
-## Acceso rápido Alt (disponible siempre, incluso en locked)
-- `Alt h/j/k/l` — Navegar paneles
-- `Alt H/J/K/L` — Mover panel
-- `Shift ← / Shift →` — Tab anterior/siguiente
-- `Alt 1-9` — Saltar a tab
-- `Alt Enter` — Nuevo panel
-- `Alt z` — Fullscreen/normal
-- `Alt Space` — Toggle flotante
+About the sub-modes behind the menu (`Ctrl+g`): `pane`, `tab` and `session`
+return to `locked` on their own after each action (one-shot). `resize`, `move`,
+`scroll` and `search` stay open instead, so you can press the same key several
+times in a row; leave them with `g` or `Esc`.
 
-Ghostty traduce `Option+←/→` a `ESC b` / `ESC f`, o sea `Alt+b` y `Alt+f`.
-Zellij no puede distinguirlos del salto de palabra de zsh, así que esas dos
-teclas se quedan libres a propósito y no hay `Alt+←/→` para mover el foco
-(usa `Alt+h/l`). `Alt+↑/↓` sí funcionan: Ghostty no los reescribe.
+## Alt fast path (always live, locked included)
+- `Alt h/j/k/l` — Move focus between panes
+- `Alt H/J/K/L` — Move the pane itself
+- `Shift ← / Shift →` — Previous/next tab
+- `Alt 1-9` — Jump to tab
+- `Alt Enter` — New pane
+- `Alt z` — Zoom (fullscreen toggle)
+- `Alt Space` — Toggle floating panes
 
-## Menú (Ctrl+g)
-- `g` / `Esc` — Volver a bloqueado
-- `p` — Modo panel
-- `t` — Modo tab
-- `r` — Modo redimensión
-- `m` — Modo mover
-- `s` — Modo scroll
-- `o` — Modo sesión
-- `a` / `?` — Esta ayuda
+Ghostty rewrites `Option+←/→` into `ESC b` / `ESC f`, which is to say `Alt+b`
+and `Alt+f`. Zellij cannot tell those apart from zsh's word jumping, so both
+keys are deliberately left unbound and there is no `Alt+←/→` for focus (use
+`Alt+h/l`). `Alt+↑/↓` do work: Ghostty leaves those alone.
 
-## Modo panel (p) — un solo golpe, vuelve a locked
-- `hjkl` / flechas — Navegar
-- `n` — Nuevo, `d` — Abajo, `r` — Derecha
-- `x` — Cerrar, `f` — Fullscreen
-- `w` — Mostrar/ocultar la capa de paneles flotantes (todos a la vez)
-- `e` — Anclar/flotar el panel actual (embed ↔ floating)
-- `z` — Toggle marcos, `c` — Renombrar
-- `Esc` / `g` — Volver a bloqueado
+## Menu (Ctrl+g)
+- `g` / `Esc` — Back to locked
+- `p` — Pane mode
+- `t` — Tab mode
+- `r` — Resize mode
+- `m` — Move mode
+- `s` — Scroll mode
+- `o` — Session mode
+- `a` / `?` — This help
 
-## Modo tab (t) — un solo golpe, vuelve a locked
-- `hl` / flechas — Anterior/siguiente
-- `n` — Nuevo, `x` — Cerrar, `r` — Renombrar
-- `Tab` — Ir a la última tab usada
-- `s` — Toggle sync (sincronizar entrada en todas las panes de la tab)
-- `1-9` — Saltar a tab
-- `Esc` / `g` — Volver a bloqueado
+## Pane mode (p) — one-shot, returns to locked
+- `hjkl` / arrows — Move focus
+- `n` — New, `d` — New below, `r` — New right
+- `x` — Close, `f` — Fullscreen
+- `w` — Show/hide the floating layer (all floating panes at once)
+- `e` — Embed/float the current pane (embed ↔ floating)
+- `z` — Toggle frames, `c` — Rename
+- `Esc` / `g` — Back to locked
 
-## Modo redimensión (r) — repetible, NO vuelve a locked sola
-- `hjkl` / flechas — Aumentar tamaño (izq/abajo/arriba/der)
-- `HJKL` (mayúsculas) — Disminuir tamaño (izq/abajo/arriba/der)
-- `= / +` — Aumentar, `-` — Disminuir (paso genérico)
-- `Esc` / `g` — Volver a bloqueado
+## Tab mode (t) — one-shot, returns to locked
+- `hl` / arrows — Previous/next
+- `n` — New, `x` — Close, `r` — Rename
+- `Tab` — Go to last used tab
+- `s` — Toggle sync (mirror input to every pane in the tab)
+- `1-9` — Jump to tab
+- `Esc` / `g` — Back to locked
 
-## Modo mover (m) — repetible, NO vuelve a locked sola
-- `hjkl` / flechas — Mover panel
-- `Esc` / `g` — Volver a bloqueado
+## Resize mode (r) — repeatable, does NOT exit on its own
+- `hjkl` / arrows — Grow (left/down/up/right)
+- `HJKL` (shifted) — Shrink (left/down/up/right)
+- `= / +` — Grow, `-` — Shrink (generic step)
+- `Esc` / `g` — Back to locked
 
-## Modo scroll (s) — repetible, NO vuelve a locked sola
-- `jk` / flechas — Scroll, `d/u` — Media página
-- `PageUp/PageDown` — Página
-- `e` — Editar scrollback (abre $EDITOR)
-- `/` — Buscar (entra en modo de escritura de búsqueda)
-- `Esc` / `g` — Volver a bloqueado
+## Move mode (m) — repeatable, does NOT exit on its own
+- `hjkl` / arrows — Move the pane
+- `Esc` / `g` — Back to locked
 
-## Modo búsqueda (/) — repetible, NO vuelve a locked sola
-- `n / N` — Siguiente/anterior resultado
-- `jk` — Navegar mientras buscas
-- `Esc` / `g` — Volver a bloqueado
+## Scroll mode (s) — repeatable, does NOT exit on its own
+- `jk` / arrows — Scroll, `d/u` — Half page
+- `PageUp/PageDown` — Full page
+- `e` — Edit scrollback (opens $EDITOR)
+- `/` — Search (drops into the search input)
+- `Esc` / `g` — Back to locked
 
-## Modo sesión (o) — un solo golpe, vuelve a locked
+## Search mode (/) — repeatable, does NOT exit on its own
+- `n / N` — Next/previous match
+- `jk` — Scroll while searching
+- `Esc` / `g` — Back to locked
+
+## Session mode (o) — one-shot, returns to locked
 - `d` — Detach
 - `w` — Session manager
-- `c` — Configuración
+- `c` — Configuration
 - `p` — Plugin manager
-- `q` — Salir (atención: zellij no pide confirmación, cierra el cliente al instante)
-- `Esc` / `g` — Volver a bloqueado
+- `q` — Quit (careful: zellij asks for no confirmation, the client dies at once)
+- `Esc` / `g` — Back to locked
+
+Config lives in `~/.config/zellij/`. Keybindings and layout are read only when
+a session is created — there is no reload command, so start a new session.
