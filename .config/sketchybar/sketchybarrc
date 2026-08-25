@@ -3,7 +3,7 @@
 PLUGIN_DIR="$CONFIG_DIR/plugins"
 
 ##### Bar Appearance #####
-sketchybar --bar position=top height=40 blur_radius=30 color=0x40000000 display=all
+sketchybar --bar position=top height=25 blur_radius=40 color=0x40000000 display=main
 
 ##### Changing Defaults #####
 default=(
@@ -21,7 +21,7 @@ default=(
 sketchybar --default "${default[@]}"
 
 ##### macOS Spaces #####
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9")
+SPACE_ICONS=("󰈹" "" "󰎚" "󰍩" "" "" "7" "8" "9")
 SPACE_KEYCODES=(18 19 20 21 23 22 26 28 25)
 for i in "${!SPACE_ICONS[@]}"
 do
