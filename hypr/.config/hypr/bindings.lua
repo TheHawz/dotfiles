@@ -71,6 +71,7 @@ hl.bind(mod .. " + SPACE", run("fuzzel"), desc("Lanzador"))
 
 -- ── Utilidades ────────────────────────────────────────────────────────────
 hl.bind(mod .. " + CTRL + L", run("hyprlock"), desc("Bloquear pantalla"))
+hl.bind(mod .. " + ESCAPE", run("$HOME/.local/bin/power-menu"), desc("Menú de sistema"))
 hl.bind("PRINT", run('grim -g "$(slurp)" - | satty --filename -'), desc("Captura de región"))
 hl.bind("SHIFT + PRINT", run("grim - | satty --filename -"), desc("Captura de pantalla completa"))
 hl.bind(mod .. " + PRINT", run("pkill hyprpicker || hyprpicker -a"), desc("Cuentagotas de color"))

@@ -1,0 +1,25 @@
+#!/bin/bash
+# Menú de sistema (SUPER+ESCAPE). Sustituye al 'omarchy-menu toggle system'.
+set -euo pipefail
+
+choice=$(printf '%s\n' \
+  "  Bloquear" \
+  "  Suspender" \
+  "  Cerrar sesión" \
+  "  Reiniciar" \
+  "  Apagar" \
+  | fuzzel --dmenu --prompt "⏻  " --lines 5 --width 22) || exit 0
+
+# Da a las apps un momento para guardar antes de cortar, como hacía Omarchy.
+graceful() {
+  hyprctl dispatch closewindow class:.* >/dev/null 2>&1 || true
+  sleep 1.5
+}
+
+case "${choice// /}" in
+  *Bloquear)     hyprlock ;;
+  *Suspender)    systemctl suspend ;;
+  *Cerrarsesión) graceful; uwsm stop ;;
+  *Reiniciar)    graceful; systemctl reboot ;;
+  *Apagar)       graceful; systemctl poweroff ;;
+esac
