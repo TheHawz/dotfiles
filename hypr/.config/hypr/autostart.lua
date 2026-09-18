@@ -1,15 +1,10 @@
--- Qué arranca con la sesión. Sustituye al autostart de Omarchy.
+-- Casi todo arranca por unidades de systemd de usuario, no desde aquí:
+--   waybar, mako, hypridle, cliphist, swaybg
+--   (systemctl --user enable --now <servicio>)
+-- Son PartOf=graphical-session.target, así que paran y arrancan con la sesión,
+-- y tienen Restart=on-failure. Aquí solo queda lo que no trae unidad.
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
 
 hl.on("hyprland.start", function()
-  -- Bajo uwsm, para que cada uno tenga su scope de systemd.
-  hl.exec_cmd("uwsm-app -- waybar")         -- barra
-  hl.exec_cmd("uwsm-app -- mako")           -- notificaciones
-  hl.exec_cmd("uwsm-app -- hypridle")       -- bloqueo por inactividad
   hl.exec_cmd("uwsm-app -- swayosd-server") -- OSD de volumen/brillo
-  hl.exec_cmd("uwsm-app -- hyprpaper")      -- fondo de pantalla
-
-  -- Historial del portapapeles
-  hl.exec_cmd("wl-paste --type text --watch cliphist store")
-  hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)

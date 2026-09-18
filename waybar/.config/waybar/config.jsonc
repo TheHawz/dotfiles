@@ -50,7 +50,7 @@
     "format-ethernet": "󰈀",
     "format-disconnected": "󰤭",
     "tooltip-format": "{ifname} · {ipaddr}",
-    "on-click": "alacritty -e nmtui"
+    "on-click": "foot -e nmtui"
   },
 
   "wireplumber": {

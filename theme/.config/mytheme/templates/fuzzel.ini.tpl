@@ -1,6 +1,6 @@
 [main]
 font=JetBrainsMono Nerd Font:size=11
-terminal=alacritty -e
+terminal=foot -e
 layer=overlay
 width=45
 lines=12

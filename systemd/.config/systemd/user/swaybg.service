@@ -1,0 +1,14 @@
+[Unit]
+Description=Fondo de pantalla (swaybg)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaybg -i %h/.config/mytheme/backgrounds/1-memento-mori.jpg -m fill
+Slice=session.slice
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
