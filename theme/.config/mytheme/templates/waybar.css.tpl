@@ -16,21 +16,49 @@
   min-height: 0;
 }
 
-/* La barra en si no se ve: solo se ven las pildoras */
+/* Tres piezas con forma de PESTANA colgando del borde superior.
+ *
+ * Las de los extremos nacen del borde de la pantalla y solo redondean por
+ * dentro; la central redondea por los dos lados.
+ *
+ * NOTA: Ryoku usa una curva en S (concava) que GTK3 NO puede dibujar. Su
+ * shell es Quickshell/QML, con formas libres. GTK3 no tiene clip-path, no
+ * admite calc() en background-size, y su motor de degradados no da cortes
+ * limpios en curva (se probó con radial-gradient: sale difuminado o recto).
+ * border-radius si lo hace impecable, asi que la pestaña va por ahi.
+ */
 window#waybar {
   background: transparent;
   color: {{ foreground }};
 }
 
-/* Cada grupo es una pildora */
 .modules-left,
 .modules-center,
 .modules-right {
-  background: {{ background }};
-  border: 1px solid {{ selection }};
-  border-radius: {{ radius }}px;
-  padding: 0 6px;
-  margin: 6px 0;
+  background-color: {{ background }};
+}
+
+/* Pieza izquierda: nace del borde, redondea abajo a la derecha */
+.modules-left {
+  border-radius: 0 0 {{ radius_tab }}px 0;
+  padding: 0 16px 0 18px;
+}
+
+/* Pieza central: redondea abajo por los dos lados */
+.modules-center {
+  border-radius: 0 0 {{ radius_tab }}px {{ radius_tab }}px;
+  padding: 0 20px;
+}
+
+/* Pieza derecha: redondea abajo a la izquierda, nace del borde */
+.modules-right {
+  border-radius: 0 0 0 {{ radius_tab }}px;
+  padding: 0 18px 0 16px;
+}
+
+/* Separador fino tras el boton de menu */
+#custom-menu {
+  border-right: 1px solid {{ selection }};
 }
 
 #workspaces button {
@@ -54,7 +82,8 @@ window#waybar {
 }
 
 #custom-menu {
-  padding: 0 12px;
+  padding: 0 16px;
+  margin-right: 8px;
   color: {{ accent }};
   font-size: 19px;
 }
