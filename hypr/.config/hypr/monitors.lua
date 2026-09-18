@@ -1,11 +1,12 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 -- List current monitors and supported resolutions with: hyprctl monitors all
 
--- Escalado real de Wayland, no el truco de GDK_SCALE.
--- A 1.25 sobre 3840x2160 quedan 3072x1728 logicos: sigue siendo mucho
--- espacio y todo se escala por igual, sea GTK, Electron o no.
--- Sube a 1.5 (2560x1440) si quieres las cosas mas grandes.
-local monitor_scale = 1.25
+-- Escala 1 sobre 3840x2160: maximo espacio.
+-- Electron (Zen, Ferdium, Obsidian) dibuja su UI segun la escala del
+-- compositor y a 1.25 quedaba demasiado grande; a 1 se ve como quieres.
+-- Contrapartida: lo que no escala solo (foot, waybar) hay que agrandarlo
+-- a mano; ver el tamano de fuente de foot.ini y la altura en waybar.
+local monitor_scale = 1
 
 -- GDK_SCALE se declara a 1 EXPLICITAMENTE, no se omite. Hyprland conserva las
 -- variables de hl.env() aunque se borren del config: quitar la linea no la
