@@ -1,2 +1,10 @@
 *.bak.*
-templates.local/
+
+# Artefactos generados por apply-theme.sh — la fuente son las plantillas
+hypr/.config/hypr/hyprlock.conf
+waybar/.config/waybar/style.css
+theme/.config/mytheme/*
+!theme/.config/mytheme/colors.toml
+!theme/.config/mytheme/templates/
+!theme/.config/mytheme/bin/
+!theme/.config/mytheme/backgrounds/

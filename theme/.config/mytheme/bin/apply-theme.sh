@@ -23,7 +23,6 @@ install_to waybar.css     "$HOME/.config/waybar/style.css"
 install_to fuzzel.ini     "$HOME/.config/fuzzel/fuzzel.ini"
 install_to mako           "$HOME/.config/mako/config"
 install_to hyprlock.conf  "$HOME/.config/hypr/hyprlock.conf"
-install_to hyprland.lua   "$HOME/.config/hypr/theme.lua"
 install_to btop.theme     "$HOME/.config/btop/themes/mytheme.theme"
 install_to neovim.lua     "$HOME/.config/nvim/lua/theme.lua"
 

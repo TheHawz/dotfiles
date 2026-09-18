@@ -36,8 +36,8 @@ hl.config({
   },
 })
 
--- Colores del tema (generado por mytheme; ver theme/bin/render-theme.sh)
-pcall(require, "hypr.theme")
+-- Colores del tema, generados por ~/.config/mytheme/bin/apply-theme.sh
+pcall(dofile, home .. "/.config/mytheme/hyprland.lua")
 
 require("hypr.monitors")
 require("hypr.input")
