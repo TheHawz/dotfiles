@@ -18,7 +18,7 @@ hl.config({
     gaps_in = 4,
     gaps_out = 8,
     border_size = 2,
-    layout = "dwindle",
+    -- El layout lo fija looknfeel.lua (master)
     resize_on_border = true,
   },
   decoration = {
@@ -26,7 +26,6 @@ hl.config({
     blur = { enabled = true, size = 6, passes = 2 },
   },
   dwindle = {
-    pseudotile = true,
     preserve_split = true,
   },
   misc = {

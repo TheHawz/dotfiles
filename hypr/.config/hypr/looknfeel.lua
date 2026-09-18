@@ -74,3 +74,50 @@ hl.config({
     center_master_fallback = "right",
   },
 })
+
+-- ── Animaciones ───────────────────────────────────────────────────────────
+-- Las de fábrica de Hyprland usan muelles (spring = "easy") para las ventanas,
+-- que es lo que da la sensación "smooth". Omarchy usaba curvas bezier cortas y
+-- desactivaba la animación de escritorios. Esto va un paso más allá.
+--
+-- La velocidad se mide en DECISEGUNDOS de duración: más bajo = más rápido.
+-- Para desactivarlas del todo:  hl.config({ animations = { enabled = false } })
+
+local snap = 0.5 -- multiplicador global: 1.0 = como Omarchy, 0.5 = el doble de rápido
+
+local function anim(leaf, speed, curve, style)
+  local a = { leaf = leaf, enabled = true, speed = speed * snap }
+  if curve then a.bezier = curve end
+  if style then a.style = style end
+  hl.animation(a)
+end
+
+hl.config({ animations = { enabled = true } })
+
+hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
+hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
+hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1.0 } } })
+hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+
+-- Ventanas: bezier en vez de muelle. Aquí está el 90% del "snappy".
+anim("windows", 3.79, "easeOutQuint")
+anim("windowsIn", 4.1, "easeOutQuint", "popin 90%")
+anim("windowsOut", 1.49, "linear", "popin 90%")
+anim("border", 5.39, "easeOutQuint")
+
+-- Desvanecidos
+anim("fade", 3.03, "quick")
+anim("fadeIn", 1.73, "almostLinear")
+anim("fadeOut", 1.46, "almostLinear")
+hl.animation({ leaf = "fadeSwitch", enabled = false })
+
+-- Capas (barra, menús, notificaciones)
+anim("layers", 3.81, "easeOutQuint")
+anim("layersIn", 4, "easeOutQuint", "fade")
+anim("layersOut", 1.5, "linear", "fade")
+anim("fadeLayersIn", 1.79, "almostLinear")
+anim("fadeLayersOut", 1.39, "almostLinear")
+
+-- Cambio de escritorio: instantáneo, como en Omarchy.
+hl.animation({ leaf = "workspaces", enabled = false })
+anim("specialWorkspace", 3, "easeOutQuint", "slidevert")

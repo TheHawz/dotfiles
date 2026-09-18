@@ -18,7 +18,7 @@ install_to() {
 }
 
 echo "==> Repartiendo"
-install_to alacritty.toml "$THEME_DIR/alacritty.toml"      # alacritty.toml lo importa desde aquí
+echo "    alacritty.toml -> ~/.config/mytheme/alacritty.toml (lo importa alacritty.toml)"
 install_to waybar.css     "$HOME/.config/waybar/style.css"
 install_to fuzzel.ini     "$HOME/.config/fuzzel/fuzzel.ini"
 install_to mako           "$HOME/.config/mako/config"

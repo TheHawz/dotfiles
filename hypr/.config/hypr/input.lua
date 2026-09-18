@@ -59,6 +59,9 @@
 -- ── Restaurado desde input.conf (pre-quattro) ─────────────────────────────
 hl.config({
   input = {
+    -- Teclado español fijo. Omarchy lo leía de /etc/vconsole.conf (XKBLAYOUT=es);
+    -- aquí se declara explícitamente porque no quieres alternar distribuciones.
+    kb_layout = "es",
     kb_options = "ctrl:nocaps,shift:both_capslock_cancel",
 
     repeat_rate = 40,
