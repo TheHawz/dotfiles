@@ -392,10 +392,11 @@ if [[ -f $COLORS_FILE ]]; then
     filename=$(basename "$tpl" .tpl)
     output_path="$NEXT_THEME_DIR/$filename"
 
-    # Don't overwrite configs already exists in the output directory (copied from theme specific folder)
-    if [[ ! -f $output_path ]]; then
-      sed -f "$sed_script" "$tpl" >"$output_path"
-    fi
+    # Regenerar siempre. En Omarchy este directorio era temporal y la guarda
+    # servia para que un tema pudiera traer su fichero ya hecho; aqui el
+    # directorio es permanente, asi que no regenerar significaria que cambiar
+    # colors.toml o una plantilla no tuviera ningun efecto.
+    sed -f "$sed_script" "$tpl" >"$output_path"
   done
 
   rm "$sed_script"
