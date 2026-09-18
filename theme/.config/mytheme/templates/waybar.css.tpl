@@ -1,6 +1,6 @@
 * {
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 13px;
+  font-size: 14px;
   border: none;
   border-radius: 0;
   min-height: 0;
@@ -32,7 +32,7 @@ window#waybar {
 #custom-menu {
   padding: 0 12px;
   color: {{ accent }};
-  font-size: 15px;
+  font-size: 17px;
 }
 #custom-menu:hover {
   background: {{ lighter_background }};

@@ -1,11 +1,13 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 -- List current monitors and supported resolutions with: hyprctl monitors all
 
-local omarchy_gdk_scale = 2
-local omarchy_monitor_scale = "auto"
+-- Escalado real de Wayland, no el truco de GDK_SCALE.
+-- A 1.25 sobre 3840x2160 quedan 3072x1728 logicos: sigue siendo mucho
+-- espacio y todo se escala por igual, sea GTK, Electron o no.
+-- Sube a 1.5 (2560x1440) si quieres las cosas mas grandes.
+local monitor_scale = 1.25
 
-hl.env("GDK_SCALE", tostring(omarchy_gdk_scale))
-hl.monitor({ output = "", mode = "preferred", position = "auto", scale = omarchy_monitor_scale })
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = monitor_scale })
 
 -- Configure a specific monitor.
 -- hl.monitor({ output = "DP-2", mode = "2560x1440@144", position = "0x0", scale = 1 })
