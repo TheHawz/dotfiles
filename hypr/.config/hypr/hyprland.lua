@@ -22,7 +22,7 @@ hl.config({
     resize_on_border = true,
   },
   decoration = {
-    rounding = 8,
+    -- rounding lo fija el tema (token radius)
     blur = { enabled = true, size = 6, passes = 2 },
   },
   dwindle = {

@@ -32,3 +32,7 @@ bright_green   = "#a8b590"
 bright_cyan    = "#94b0b8"
 bright_blue    = "#879fbd"
 bright_magenta = "#c69bad"
+
+# Geometria (no son colores, pero el motor los pasa igual)
+radius = "12"
+radius_small = "8"

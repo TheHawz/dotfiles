@@ -18,7 +18,7 @@ input-field {
     check_color = {{ yellow }}
     placeholder_text = <span foreground="{{ muted }}">Contraseña…</span>
     fade_on_empty = false
-    rounding = 8
+    rounding = {{ radius_small }}
     position = 0, -80
     halign = center
     valign = center

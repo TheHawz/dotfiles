@@ -19,4 +19,4 @@ border={{ accent_strip }}ff
 
 [border]
 width=2
-radius=8
+radius={{ radius }}

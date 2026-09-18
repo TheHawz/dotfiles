@@ -28,7 +28,7 @@ window#waybar {
 .modules-right {
   background: {{ background }};
   border: 1px solid {{ selection }};
-  border-radius: 12px;
+  border-radius: {{ radius }}px;
   padding: 0 6px;
   margin: 6px 0;
 }
@@ -38,7 +38,7 @@ window#waybar {
   margin: 3px 1px;
   color: {{ muted }};
   background: transparent;
-  border-radius: 8px;
+  border-radius: {{ radius_small }}px;
 }
 #workspaces button.active {
   color: {{ background }};
@@ -92,6 +92,6 @@ window#waybar {
 tooltip {
   background: {{ dark_background }};
   border: 1px solid {{ selection }};
-  border-radius: 8px;
+  border-radius: {{ radius_small }}px;
   color: {{ foreground }};
 }
