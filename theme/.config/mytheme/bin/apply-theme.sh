@@ -46,6 +46,16 @@ if [[ -f $zen_root/installs.ini && -f $THEME_DIR/zen-userChrome.css ]]; then
   fi
 fi
 
+# ── MiniMeters ────────────────────────────────────────────────────────────
+mm_themes="$HOME/.config/MiniMeters/Themes"
+if [[ -d $mm_themes && -f $THEME_DIR/minimeters.ini ]]; then
+  cp "$THEME_DIR/minimeters.ini" "$mm_themes/mytheme.ini"
+  echo "    minimeters.ini -> ~/.config/MiniMeters/Themes/mytheme.ini"
+  if ! grep -q 'string theme "mytheme"' "$HOME/.config/MiniMeters/settings.mms" 2>/dev/null; then
+    echo "    (selecciona el tema 'mytheme' en MiniMeters: Settings > Theme)"
+  fi
+fi
+
 echo "==> Recargando"
 pkill -SIGUSR2 waybar 2>/dev/null && echo "    waybar" || true
 makoctl reload        2>/dev/null && echo "    mako"   || true

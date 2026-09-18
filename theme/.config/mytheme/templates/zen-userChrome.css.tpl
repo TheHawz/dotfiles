@@ -1,36 +1,36 @@
 /* Zen Browser — generado por apply-theme.sh desde tu paleta.
  *
- * Solo se redefinen variables de alto nivel, no se estilan widgets concretos:
- * el DOM interno de Zen cambia entre versiones y estilarlo se rompe solo.
- * Las --lwt-* son de Firefox y las más estables; las --zen-* se sacaron del
- * build instalado (grep sobre omni.ja).
+ * DOS COSAS QUE HAY QUE SABER, aprendidas a base de que no funcionara:
+ *
+ * 1. !important es OBLIGATORIO. userChrome.css es una hoja de ORIGEN USUARIO,
+ *    y en el cascade de CSS las declaraciones normales de usuario pierden
+ *    frente a las de autor (el CSS propio de Zen). Solo con !important gana
+ *    el usuario. Sin esto, el fichero se carga y no hace absolutamente nada.
+ *
+ * 2. Zen DERIVA su paleta de una sola variable. En zen-theme.css:
+ *      --zen-colors-primary: color-mix(in srgb, var(--zen-primary-color) 20%,
+ *                                      var(--zen-branding-bg) 80%);
+ *    Redefinir las derivadas es inútil: Zen las recalcula. Se toca la raíz
+ *    y él genera el resto, que además es más robusto ante actualizaciones.
  */
 
 :root {
-  /* Zen */
-  --zen-primary-color: {{ accent }};
-  --zen-colors-primary: {{ background }};
-  --zen-colors-secondary: {{ lighter_background }};
-  --zen-colors-tertiary: {{ dark_background }};
-  --zen-colors-border: {{ selection }};
-  --zen-colors-hover-bg: {{ selection }};
-  --zen-dialog-background: {{ background }};
-  --zen-sidebar-themed-icon-fill: {{ foreground }};
+  /* Las dos raíces de las que Zen deriva todo lo demás */
+  --zen-primary-color: {{ accent }} !important;
+  --zen-branding-dark: {{ background }} !important;
+  --zen-branding-paper: {{ light_foreground }} !important;
 
-  /* Firefox (base estable) */
-  --lwt-accent-color: {{ background }};
-  --lwt-accent-color-inactive: {{ dark_background }};
-  --lwt-text-color: {{ foreground }};
-  --lwt-tab-line-color: {{ accent }};
-  --lwt-sidebar-highlight-background-color: {{ selection }};
-  --lwt-sidebar-highlight-text-color: {{ bright_foreground }};
-  --lwt-toolbar-field-highlight: {{ selection }};
-  --lwt-toolbar-field-highlight-text: {{ bright_foreground }};
+  /* Base estándar de Firefox */
+  --lwt-accent-color: {{ background }} !important;
+  --lwt-accent-color-inactive: {{ dark_background }} !important;
+  --lwt-text-color: {{ foreground }} !important;
+  --lwt-tab-line-color: {{ accent }} !important;
+  --lwt-sidebar-highlight-background-color: {{ selection }} !important;
+  --lwt-sidebar-highlight-text-color: {{ bright_foreground }} !important;
 
-  --toolbar-bgcolor: {{ background }};
-  --toolbar-color: {{ foreground }};
-  --toolbar-field-background-color: {{ lighter_background }};
-  --toolbar-field-color: {{ foreground }};
-  --toolbar-field-focus-background-color: {{ lighter_background }};
-  --toolbar-field-border-color: {{ selection }};
+  --toolbar-bgcolor: {{ background }} !important;
+  --toolbar-color: {{ foreground }} !important;
+  --toolbar-field-background-color: {{ lighter_background }} !important;
+  --toolbar-field-color: {{ foreground }} !important;
+  --toolbar-field-border-color: {{ selection }} !important;
 }
