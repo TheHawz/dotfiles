@@ -12,8 +12,6 @@ for module in pairs(package.loaded) do
   end
 end
 
-require("hypr.lib")
-
 -- Valores base que antes ponía Omarchy
 hl.config({
   general = {

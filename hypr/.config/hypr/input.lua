@@ -44,9 +44,9 @@
 --   },
 -- })
 
--- App-specific touchpad scroll speeds.
--- o.window("(Alacritty|kitty|foot)", { scroll_touchpad = 1.5 })
--- o.window("com.mitchellh.ghostty", { scroll_touchpad = 0.2 })
+-- Velocidad de scroll por aplicación.
+-- hl.window_rule({ name = "scroll-term", match = { class = "(Alacritty|kitty|foot)" }, scroll_touchpad = 1.5 })
+-- hl.window_rule({ name = "scroll-ghostty", match = { class = "com.mitchellh.ghostty" }, scroll_touchpad = 0.2 })
 
 -- Enable touchpad gestures for changing workspaces.
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Gestures/
@@ -77,5 +77,5 @@ hl.config({
 })
 
 -- Scroll más cómodo en terminales
-o.window("(Alacritty|kitty|foot)", { scroll_touchpad = 1.5 })
-o.window("com.mitchellh.ghostty", { scroll_touchpad = 0.2 })
+hl.window_rule({ name = "scroll-terminales", match = { class = "(Alacritty|kitty|foot)" }, scroll_touchpad = 1.5 })
+hl.window_rule({ name = "scroll-ghostty", match = { class = "com.mitchellh.ghostty" }, scroll_touchpad = 0.2 })

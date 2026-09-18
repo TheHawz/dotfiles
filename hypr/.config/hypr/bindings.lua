@@ -1,79 +1,99 @@
 -- Atajos. Núcleo curado de los 226 que traía Omarchy.
--- La lista completa está en dotfiles/rescate/keybindings-legible.txt
--- y el código original en dotfiles/rescate/omarchy-defaults/.
+-- API nativa de Hyprland: https://wiki.hypr.land/Configuring/Basics/Binds/
+-- La lista completa rescatada está en dotfiles/rescate/.
+
+local mod = "SUPER"
+
+-- Lanza bajo uwsm para que la app quede en su propio scope de systemd.
+local function app(command)
+  return hl.dsp.exec_cmd("uwsm-app -- " .. command)
+end
+
+local function run(command)
+  return hl.dsp.exec_cmd(command)
+end
+
+local function desc(text)
+  return { description = text }
+end
 
 -- ── Ventanas ──────────────────────────────────────────────────────────────
-o.bind("SUPER + W", "Cerrar ventana", hl.dsp.window.close())
-o.bind("SUPER + J", "Alternar división", hl.dsp.layout("togglesplit"))
-o.bind("SUPER + T", "Flotante / mosaico", hl.dsp.window.float({ action = "toggle" }))
-o.bind("SUPER + F", "Pantalla completa", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
-o.bind("SUPER + ALT + F", "Ancho completo", hl.dsp.window.fullscreen({ mode = "maximized" }))
-o.bind("SUPER + G", "Agrupar ventanas", hl.dsp.group.toggle())
+hl.bind(mod .. " + W", hl.dsp.window.close(), desc("Cerrar ventana"))
+hl.bind(mod .. " + J", hl.dsp.layout("togglesplit"), desc("Alternar división"))
+hl.bind(mod .. " + T", hl.dsp.window.float({ action = "toggle" }), desc("Flotante / mosaico"))
+hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }), desc("Pantalla completa"))
+hl.bind(mod .. " + ALT + F", hl.dsp.window.fullscreen({ mode = "maximized" }), desc("Ancho completo"))
+hl.bind(mod .. " + G", hl.dsp.group.toggle(), desc("Agrupar ventanas"))
 
-o.bind("SUPER + LEFT", "Foco a la izquierda", hl.dsp.focus({ direction = "l" }))
-o.bind("SUPER + RIGHT", "Foco a la derecha", hl.dsp.focus({ direction = "r" }))
-o.bind("SUPER + UP", "Foco arriba", hl.dsp.focus({ direction = "u" }))
-o.bind("SUPER + DOWN", "Foco abajo", hl.dsp.focus({ direction = "d" }))
+hl.bind(mod .. " + LEFT", hl.dsp.focus({ direction = "l" }), desc("Foco a la izquierda"))
+hl.bind(mod .. " + RIGHT", hl.dsp.focus({ direction = "r" }), desc("Foco a la derecha"))
+hl.bind(mod .. " + UP", hl.dsp.focus({ direction = "u" }), desc("Foco arriba"))
+hl.bind(mod .. " + DOWN", hl.dsp.focus({ direction = "d" }), desc("Foco abajo"))
 
-o.bind("SUPER + SHIFT + LEFT", "Mover ventana a la izquierda", hl.dsp.window.swap({ direction = "l" }))
-o.bind("SUPER + SHIFT + RIGHT", "Mover ventana a la derecha", hl.dsp.window.swap({ direction = "r" }))
-o.bind("SUPER + SHIFT + UP", "Mover ventana arriba", hl.dsp.window.swap({ direction = "u" }))
-o.bind("SUPER + SHIFT + DOWN", "Mover ventana abajo", hl.dsp.window.swap({ direction = "d" }))
+hl.bind(mod .. " + SHIFT + LEFT", hl.dsp.window.swap({ direction = "l" }), desc("Mover ventana a la izquierda"))
+hl.bind(mod .. " + SHIFT + RIGHT", hl.dsp.window.swap({ direction = "r" }), desc("Mover ventana a la derecha"))
+hl.bind(mod .. " + SHIFT + UP", hl.dsp.window.swap({ direction = "u" }), desc("Mover ventana arriba"))
+hl.bind(mod .. " + SHIFT + DOWN", hl.dsp.window.swap({ direction = "d" }), desc("Mover ventana abajo"))
 
-o.bind("ALT + TAB", "Siguiente ventana", hl.dsp.window.cycle_next())
-o.bind("ALT + SHIFT + TAB", "Ventana anterior", hl.dsp.window.cycle_next({ next = false }))
+hl.bind("ALT + TAB", hl.dsp.window.cycle_next(), desc("Siguiente ventana"))
+hl.bind("ALT + SHIFT + TAB", hl.dsp.window.cycle_next({ next = false }), desc("Ventana anterior"))
 
-o.bind("SUPER + code:20", "Estrechar ventana", hl.dsp.window.resize({ x = -100, y = 0, relative = true }))
-o.bind("SUPER + code:21", "Ensanchar ventana", hl.dsp.window.resize({ x = 100, y = 0, relative = true }))
+hl.bind(mod .. " + code:20", hl.dsp.window.resize({ x = -100, y = 0, relative = true }), desc("Estrechar ventana"))
+hl.bind(mod .. " + code:21", hl.dsp.window.resize({ x = 100, y = 0, relative = true }), desc("Ensanchar ventana"))
 
-o.bind("SUPER + mouse:272", "Arrastrar ventana", hl.dsp.window.drag(), { mouse = true })
-o.bind("SUPER + mouse:273", "Redimensionar ventana", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { description = "Arrastrar ventana", mouse = true })
+hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { description = "Redimensionar ventana", mouse = true })
 
 -- ── Escritorios ───────────────────────────────────────────────────────────
 for workspace = 1, 10 do
   local key = "code:" .. tostring(workspace + 9)
-  o.bind("SUPER + " .. key, "Ir al escritorio " .. workspace,
-    hl.dsp.focus({ workspace = tostring(workspace) }))
-  o.bind("SUPER + SHIFT + " .. key, "Llevar ventana al escritorio " .. workspace,
-    hl.dsp.window.move({ workspace = tostring(workspace) }))
+  hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = tostring(workspace) }),
+    desc("Ir al escritorio " .. workspace))
+  hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = tostring(workspace) }),
+    desc("Llevar ventana al escritorio " .. workspace))
 end
 
-o.bind("SUPER + TAB", "Escritorio siguiente", hl.dsp.focus({ workspace = "e+1" }))
-o.bind("SUPER + SHIFT + TAB", "Escritorio anterior", hl.dsp.focus({ workspace = "e-1" }))
-o.bind("SUPER + mouse_down", "Escritorio siguiente", hl.dsp.focus({ workspace = "e+1" }))
-o.bind("SUPER + mouse_up", "Escritorio anterior", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mod .. " + TAB", hl.dsp.focus({ workspace = "e+1" }), desc("Escritorio siguiente"))
+hl.bind(mod .. " + SHIFT + TAB", hl.dsp.focus({ workspace = "e-1" }), desc("Escritorio anterior"))
+hl.bind(mod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }), desc("Escritorio siguiente"))
+hl.bind(mod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }), desc("Escritorio anterior"))
 
-o.bind("SUPER + S", "Scratchpad", hl.dsp.workspace.toggle_special("scratchpad"))
-o.bind("SUPER + ALT + S", "Llevar al scratchpad",
-  hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }))
+hl.bind(mod .. " + S", hl.dsp.workspace.toggle_special("scratchpad"), desc("Scratchpad"))
+hl.bind(mod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:scratchpad", follow = false }),
+  desc("Llevar al scratchpad"))
 
 -- ── Aplicaciones ──────────────────────────────────────────────────────────
-o.bind("SUPER + RETURN", "Terminal", { launch = "alacritty" })
-o.bind("SUPER + SHIFT + RETURN", "Navegador", { launch = "zen-browser" })
-o.bind("SUPER + SHIFT + F", "Archivos", { launch = "nautilus --new-window" })
-o.bind("SUPER + SHIFT + W", "Typora", { launch = "typora --enable-wayland-ime" })
-o.bind("SUPER + SPACE", "Lanzador", "fuzzel")
+hl.bind(mod .. " + RETURN", app("alacritty"), desc("Terminal"))
+hl.bind(mod .. " + SHIFT + RETURN", app("zen-browser"), desc("Navegador"))
+hl.bind(mod .. " + SHIFT + F", app("nautilus --new-window"), desc("Archivos"))
+hl.bind(mod .. " + SHIFT + W", app("typora --enable-wayland-ime"), desc("Typora"))
+hl.bind(mod .. " + SPACE", run("fuzzel"), desc("Lanzador"))
 
 -- ── Utilidades ────────────────────────────────────────────────────────────
-o.bind("SUPER + CTRL + L", "Bloquear pantalla", "hyprlock")
-o.bind("PRINT", "Captura de región", "grim -g \"$(slurp)\" - | satty --filename -")
-o.bind("SHIFT + PRINT", "Captura de pantalla completa", "grim - | satty --filename -")
-o.bind("SUPER + PRINT", "Cuentagotas de color", "pkill hyprpicker || hyprpicker -a")
-o.bind("SUPER + V", "Historial del portapapeles",
-  "cliphist list | fuzzel --dmenu | cliphist decode | wl-copy")
-o.bind("SUPER + SHIFT + SPACE", "Mostrar/ocultar barra", "pkill -SIGUSR1 waybar")
+hl.bind(mod .. " + CTRL + L", run("hyprlock"), desc("Bloquear pantalla"))
+hl.bind("PRINT", run('grim -g "$(slurp)" - | satty --filename -'), desc("Captura de región"))
+hl.bind("SHIFT + PRINT", run("grim - | satty --filename -"), desc("Captura de pantalla completa"))
+hl.bind(mod .. " + PRINT", run("pkill hyprpicker || hyprpicker -a"), desc("Cuentagotas de color"))
+hl.bind(mod .. " + V", run("cliphist list | fuzzel --dmenu | cliphist decode | wl-copy"),
+  desc("Historial del portapapeles"))
+hl.bind(mod .. " + SHIFT + SPACE", run("pkill -SIGUSR1 waybar"), desc("Mostrar/ocultar barra"))
 
 -- ── Teclas multimedia ─────────────────────────────────────────────────────
-o.bind("XF86AudioRaiseVolume", "Subir volumen", "swayosd-client --output-volume raise", { locked = true })
-o.bind("XF86AudioLowerVolume", "Bajar volumen", "swayosd-client --output-volume lower", { locked = true })
-o.bind("XF86AudioMute", "Silenciar", "swayosd-client --output-volume mute-toggle", { locked = true })
-o.bind("XF86AudioMicMute", "Silenciar micrófono", "swayosd-client --input-volume mute-toggle", { locked = true })
-o.bind("XF86MonBrightnessUp", "Más brillo", "swayosd-client --brightness raise", { locked = true })
-o.bind("XF86MonBrightnessDown", "Menos brillo", "swayosd-client --brightness lower", { locked = true })
-o.bind("XF86AudioPlay", "Reproducir/pausar", "playerctl play-pause", { locked = true })
-o.bind("XF86AudioNext", "Siguiente pista", "playerctl next", { locked = true })
-o.bind("XF86AudioPrev", "Pista anterior", "playerctl previous", { locked = true })
+local function media(keys, command, text)
+  hl.bind(keys, hl.dsp.exec_cmd(command), { description = text, locked = true })
+end
+
+media("XF86AudioRaiseVolume", "swayosd-client --output-volume raise", "Subir volumen")
+media("XF86AudioLowerVolume", "swayosd-client --output-volume lower", "Bajar volumen")
+media("XF86AudioMute", "swayosd-client --output-volume mute-toggle", "Silenciar")
+media("XF86AudioMicMute", "swayosd-client --input-volume mute-toggle", "Silenciar micrófono")
+media("XF86MonBrightnessUp", "swayosd-client --brightness raise", "Más brillo")
+media("XF86MonBrightnessDown", "swayosd-client --brightness lower", "Menos brillo")
+media("XF86AudioPlay", "playerctl play-pause", "Reproducir/pausar")
+media("XF86AudioNext", "playerctl next", "Siguiente pista")
+media("XF86AudioPrev", "playerctl previous", "Pista anterior")
 
 -- ── Tuyos, restaurados desde bindings.conf (pre-quattro) ──────────────────
-o.bind("SUPER + ALT + W", "Fondo aleatorio", "$HOME/.local/bin/wall-random")
-o.bind("SUPER + L", "Alternar disposición master/dwindle", "$HOME/.local/bin/hypr-toggle-master-dwindle")
+hl.bind(mod .. " + ALT + W", run("$HOME/.local/bin/wall-random"), desc("Fondo aleatorio"))
+hl.bind(mod .. " + L", run("$HOME/.local/bin/hypr-toggle-master-dwindle"),
+  desc("Alternar disposición master/dwindle"))
