@@ -36,4 +36,4 @@ bright_magenta = "#c69bad"
 # Geometria (no son colores, pero el motor los pasa igual)
 radius = "12"
 radius_small = "8"
-radius_tab = "18"
+radius_tab = "10"
