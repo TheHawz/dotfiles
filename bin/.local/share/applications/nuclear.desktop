@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Nuclear
+GenericName=Reproductor de música
+Comment=Reproductor que busca música libre en SoundCloud, YouTube y más
+Exec=/home/hawz/.local/share/AppImage/Nuclear.AppImage %U
+Icon=nuclear
+Terminal=false
+Categories=AudioVideo;Audio;Player;
+StartupWMClass=Nuclear-music-player
