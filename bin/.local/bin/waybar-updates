@@ -1,0 +1,14 @@
+#!/bin/bash
+# Paquetes pendientes de actualizar (JSON para waybar).
+# checkupdates usa una base de datos temporal: no toca la del sistema.
+count=$(checkupdates 2>/dev/null | wc -l)
+
+if (( count == 0 )); then
+  printf '{"text":"","tooltip":"Sistema al dia"}\n'
+else
+  list=$(checkupdates 2>/dev/null | head -20 | sed 's/&/\&amp;/g')
+  (( count > 20 )) && list="$list
+… y $((count - 20)) mas"
+  printf '{"text":"󰏔 %s","tooltip":"%s paquetes pendientes\\n\\n%s","class":"pending"}\n' \
+    "$count" "$count" "${list//$'\n'/\\n}"
+fi

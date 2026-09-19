@@ -1,76 +1,140 @@
-{
-  "layer": "top",
-  "position": "top",
-  "height": 46,
-  "margin-left": 0,
-  "margin-right": 0,
-  "spacing": 0,
+[
+  // ── Barra superior ──────────────────────────────────────────────────────
+  {
+    "name": "top",
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "spacing": 0,
 
-  "modules-left": ["custom/menu", "hyprland/workspaces"],
-  "modules-center": ["clock", "hyprland/language"],
-  "modules-right": ["tray", "bluetooth", "network", "wireplumber", "cpu", "memory", "temperature"],
+    "modules-left": ["custom/menu", "hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["mpris", "clock", "hyprland/language"],
+    "modules-right": ["privacy", "idle_inhibitor", "tray", "network", "wireplumber"],
 
-  "custom/menu": {
-    "format": "☰",
-    "tooltip": false,
-    "on-click": "fuzzel"
-  },
+    "custom/menu": {
+      "format": "☰",
+      "tooltip": false,
+      "on-click": "fuzzel"
+    },
 
-  "hyprland/workspaces": {
-    "format": "{name}",
-    "on-click": "activate",
-    "sort-by-number": true
-  },
+    "hyprland/workspaces": {
+      "format": "{name}",
+      "on-click": "activate",
+      "sort-by-number": true
+    },
 
-  // Equivalente a "dddd HH:mm - yyyy-MM-dd - 'Week' ww" de tu shell.json
-  "clock": {
-    "format": "{:%A %H:%M - %Y-%m-%d - Week %V}",
-    "format-alt": "{:%-d %B W%V %Y}",
-    "tooltip-format": "<tt><small>{calendar}</small></tt>",
-    "calendar": {
-      "mode": "month",
-      "weeks-pos": "left",
-      "format": { "today": "<b>{}</b>" }
+    "hyprland/window": {
+      "format": "{title}",
+      "max-length": 60,
+      "separate-outputs": true
+    },
+
+    "mpris": {
+      "format": "{status_icon} {dynamic}",
+      "dynamic-len": 40,
+      "status-icons": { "playing": "󰐊", "paused": "󰏤", "stopped": "󰓛" },
+      "on-click": "playerctl play-pause",
+      "on-scroll-up": "playerctl next",
+      "on-scroll-down": "playerctl previous"
+    },
+
+    // Equivalente a "dddd HH:mm - yyyy-MM-dd - 'Week' ww" de tu shell.json
+    "clock": {
+      "format": "{:%A %H:%M - %Y-%m-%d - Week %V}",
+      "format-alt": "{:%-d %B W%V %Y}",
+      "tooltip-format": "<tt><small>{calendar}</small></tt>",
+      "calendar": {
+        "mode": "month",
+        "weeks-pos": "left",
+        "format": { "today": "<b>{}</b>" }
+      }
+    },
+
+    "hyprland/language": { "format": "{short}", "tooltip": false },
+
+    "privacy": {
+      "icon-size": 15,
+      "icon-spacing": 6,
+      "modules": [
+        { "type": "screenshare" },
+        { "type": "audio-in" }
+      ]
+    },
+
+    "idle_inhibitor": {
+      "format": "{icon}",
+      "format-icons": { "activated": "󰅶", "deactivated": "󰛊" },
+      "tooltip-format-activated": "No se suspendera",
+      "tooltip-format-deactivated": "Suspension normal"
+    },
+
+    "tray": { "spacing": 10 },
+
+    "bluetooth": {
+      "format": "󰂯",
+      "format-disabled": "",
+      "format-connected": "󰂱 {num_connections}",
+      "tooltip-format": "{device_alias}",
+      "on-click": "blueberry || blueman-manager"
+    },
+
+    "network": {
+      "format-ethernet": "󰈀",
+      "format-disconnected": "󰤭",
+      "tooltip-format": "{ifname} · {ipaddr}",
+      "on-click": "foot -e nmtui"
+    },
+
+    "wireplumber": {
+      "format": "{icon} {volume}%",
+      "format-muted": "󰝟",
+      "format-icons": ["󰕿", "󰖀", "󰕾"],
+      "on-click": "swayosd-client --output-volume mute-toggle",
+      "on-scroll-up": "swayosd-client --output-volume raise",
+      "on-scroll-down": "swayosd-client --output-volume lower"
     }
   },
 
-  "hyprland/language": {
-    "format": "{short}",
-    "tooltip": false
-  },
+  // ── Panel flotante de monitorizacion (abajo a la derecha) ───────────────
+  {
+    "name": "widget",
+    "layer": "bottom",
+    "position": "bottom",
+    "exclusive": false,
+    "height": 30,
+    "margin-bottom": 18,
+    "margin-right": 18,
+    "spacing": 0,
 
-  "tray": { "spacing": 10 },
+    "modules-left": [],
+    "modules-center": [],
+    "modules-right": ["custom/gpu", "cpu", "memory", "temperature", "disk", "custom/updates"],
 
-  "bluetooth": {
-    "format": "󰂯",
-    "format-disabled": "",
-    "format-connected": "󰂱 {num_connections}",
-    "tooltip-format": "{device_alias}",
-    "on-click": "blueberry || blueman-manager"
-  },
+    "custom/gpu": {
+      "exec": "$HOME/.local/bin/waybar-gpu",
+      "return-type": "json",
+      "interval": 5
+    },
 
-  "network": {
-    "format-ethernet": "󰈀",
-    "format-disconnected": "󰤭",
-    "tooltip-format": "{ifname} · {ipaddr}",
-    "on-click": "foot -e nmtui"
-  },
-
-  "wireplumber": {
-    "format": "{icon} {volume}%",
-    "format-muted": "󰝟",
-    "format-icons": ["󰕿", "󰖀", "󰕾"],
-    "on-click": "swayosd-client --output-volume mute-toggle",
-    "on-scroll-up": "swayosd-client --output-volume raise",
-    "on-scroll-down": "swayosd-client --output-volume lower"
-  },
-
-  "cpu": { "format": "󰻠 {usage}%", "interval": 5 },
-  "memory": { "format": "󰍛 {percentage}%", "interval": 5 },
-  "temperature": {
-    "hwmon-path-abs": "/sys/class/hwmon",
-    "critical-threshold": 80,
-    "format": "󰔏 {temperatureC}°C",
-    "interval": 5
+    "cpu": { "format": "󰻠 {usage}%", "interval": 5 },
+    "memory": { "format": "󰍛 {percentage}%", "tooltip-format": "{used:0.1f}G de {total:0.1f}G", "interval": 5 },
+    "temperature": {
+      "hwmon-path-abs": "/sys/class/hwmon",
+      "critical-threshold": 80,
+      "format": "󰔏 {temperatureC}°C",
+      "interval": 5
+    },
+    "disk": {
+      "path": "/",
+      "format": "󰋊 {percentage_used}%",
+      "tooltip-format": "{used} usados de {total} ({percentage_free}% libre)",
+      "interval": 60
+    },
+    "custom/updates": {
+      "exec": "$HOME/.local/bin/waybar-updates",
+      "return-type": "json",
+      "interval": 1800,
+      "on-click": "foot -e bash -c 'sudo pacman -Syu; read -rp \"Enter para cerrar...\"'"
+    }
   }
-}
+]

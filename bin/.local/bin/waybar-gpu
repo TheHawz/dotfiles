@@ -1,0 +1,14 @@
+#!/bin/bash
+# Temperatura y uso de la GPU NVIDIA para waybar (salida JSON).
+read -r temp util mem_used mem_total < <(
+  nvidia-smi --query-gpu=temperature.gpu,utilization.gpu,memory.used,memory.total \
+             --format=csv,noheader,nounits 2>/dev/null | tr -d ',' 
+) || exit 0
+[ -n "${temp:-}" ] || exit 0
+
+class=""
+(( temp >= 80 )) && class="critical"
+(( temp >= 70 && temp < 80 )) && class="warning"
+
+printf '{"text":"󰢮 %s°C","tooltip":"GPU %s%%  ·  VRAM %s/%s MiB","class":"%s"}\n' \
+  "$temp" "$util" "$mem_used" "$mem_total" "$class"

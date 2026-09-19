@@ -56,6 +56,56 @@ window#waybar {
   padding: 0 18px 0 16px;
 }
 
+/* ── Panel flotante de monitorizacion ──────────────────────────────────
+ * Es la segunda barra (name: "widget"). Al no tocar ningun borde, aqui si
+ * redondea las cuatro esquinas y lleva borde completo.
+ */
+window#waybar.widget {
+  background: transparent;
+}
+window#waybar.widget .modules-right {
+  background-color: {{ background }};
+  border: 1px solid {{ selection }};
+  border-radius: {{ radius }}px;
+  padding: 0 14px;
+}
+window#waybar.widget #cpu,
+window#waybar.widget #memory,
+window#waybar.widget #temperature,
+window#waybar.widget #disk,
+window#waybar.widget #custom-gpu,
+window#waybar.widget #custom-updates {
+  padding: 0 10px;
+  color: {{ light_foreground }};
+}
+
+/* ── Modulos nuevos de la barra superior ───────────────────────────────── */
+#window {
+  padding: 0 14px;
+  color: {{ muted }};
+}
+
+#mpris {
+  padding: 0 12px;
+  color: {{ green }};
+}
+#mpris.paused { color: {{ muted }}; }
+
+#privacy {
+  padding: 0 8px;
+  color: {{ red }};
+}
+
+#idle_inhibitor {
+  padding: 0 9px;
+  color: {{ muted }};
+}
+#idle_inhibitor.activated { color: {{ yellow }}; }
+
+#custom-gpu.warning  { color: {{ yellow }}; }
+#custom-gpu.critical { color: {{ red }}; }
+#custom-updates.pending { color: {{ accent }}; }
+
 /* Separador fino tras el boton de menu */
 #custom-menu {
   border-right: 1px solid {{ selection }};
