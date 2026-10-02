@@ -95,6 +95,6 @@ media("XF86AudioNext", "playerctl next", "Siguiente pista")
 media("XF86AudioPrev", "playerctl previous", "Pista anterior")
 
 -- ── Tuyos, restaurados desde bindings.conf (pre-quattro) ──────────────────
-hl.bind(mod .. " + ALT + W", run("$HOME/.local/bin/wall-random"), desc("Fondo aleatorio"))
+hl.bind(mod .. " + ALT + W", run("$HOME/.local/bin/wallpaper"), desc("Cambiar fondo"))
 hl.bind(mod .. " + L", run("$HOME/.local/bin/hypr-toggle-master-dwindle"),
   desc("Alternar disposición master/dwindle"))

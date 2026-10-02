@@ -1,0 +1,42 @@
+#!/bin/bash
+# Cambia el fondo de pantalla.
+#
+#   wallpaper                 selector sobre ~/Pictures/Wallpapers
+#   wallpaper ruta/imagen     pone esa imagen directamente
+#   wallpaper --current       dice cual esta puesta
+#
+# El servicio de swaybg apunta siempre al symlink ~/.local/state/wallpaper/current;
+# aqui solo se cambia a donde apunta y se reinicia. Asi ni el servicio ni el
+# repo de dotfiles se tocan al cambiar de fondo.
+set -euo pipefail
+
+LINK="$HOME/.local/state/wallpaper/current"
+DIRS=("$HOME/Pictures/Wallpapers" "$HOME/.config/mytheme/backgrounds")
+
+case "${1:-}" in
+  --current|-c)
+    readlink -f "$LINK"; exit 0 ;;
+  --help|-h)
+    sed -n '2,9p' "$0" | sed 's/^# \?//'; exit 0 ;;
+esac
+
+if [[ -n ${1:-} ]]; then
+  target=$(readlink -f "$1")
+  [[ -f $target ]] || { echo "No existe: $1" >&2; exit 1; }
+else
+  # Selector: nombre legible delante, ruta completa detras del tabulador
+  choice=$(
+    find "${DIRS[@]}" -type f \
+      \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) 2>/dev/null |
+    sort |
+    while read -r f; do printf '%s\t%s\n' "$(basename "${f%.*}")" "$f"; done |
+    fuzzel --dmenu --prompt "󰸉  " --with-nth 1 --accept-nth 2 --lines 15 --width 55
+  ) || exit 0
+  target="$choice"
+fi
+
+[[ -n ${target:-} && -f $target ]] || exit 0
+
+ln -sfn "$target" "$LINK"
+systemctl --user restart swaybg.service
+notify-send -i image-x-generic "Fondo cambiado" "$(basename "$target")" 2>/dev/null || true
