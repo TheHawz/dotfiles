@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+# Sets @thm_* tmux options from the current Ghostty theme, so tmux follows whatever theme Ghostty uses.
+# Run from tmux.conf (before any style that references @thm_*); re-run by reloading the config.
+set -euo pipefail
+
+config_dir="${XDG_CONFIG_HOME:-$HOME/.config}/ghostty"
+config="$config_dir/config.ghostty"
+[ -f "$config" ] || config="$config_dir/config"
+[ -f "$config" ] || exit 0
+
+theme=$(sed -nE 's/^[[:space:]]*theme[[:space:]]*=[[:space:]]*"?([^"]*[^"[:space:]])"?[[:space:]]*$/\1/p' "$config" | tail -1)
+[ -n "$theme" ] || exit 0
+
+# "light:A,dark:B" follows the macOS appearance
+if [[ "$theme" == *:* ]]; then
+  mode=light
+  [ "$(defaults read -g AppleInterfaceStyle 2>/dev/null)" = Dark ] && mode=dark
+  theme=$(tr ',' '\n' <<<"$theme" | sed -nE "s/^[[:space:]]*$mode:(.*)$/\1/p")
+fi
+
+theme_file=""
+for dir in "$config_dir/themes" "${GHOSTTY_RESOURCES_DIR:-}/themes" /Applications/Ghostty.app/Contents/Resources/ghostty/themes; do
+  if [ -f "$dir/$theme" ]; then theme_file="$dir/$theme"; break; fi
+done
+[ -f "$theme" ] && theme_file="$theme"
+[ -n "$theme_file" ] || exit 0
+
+get() { sed -nE "s/^[[:space:]]*$1[[:space:]]*=[[:space:]]*(#?[0-9a-fA-F]{6}).*/\1/p" "$theme_file" | tail -1; }
+palette() { sed -nE "s/^[[:space:]]*palette[[:space:]]*=[[:space:]]*$1=(#?[0-9a-fA-F]{6}).*/\1/p" "$theme_file" | tail -1; }
+hex() { [ -z "$1" ] || echo "#${1#\#}"; }
+
+bg=$(hex "$(get background)")
+fg=$(hex "$(get foreground)")
+surface=$(hex "$(get selection-background)")
+[ -n "$surface" ] || surface=$(hex "$(palette 0)")
+
+declare -a cmds=()
+add() { [ -n "$2" ] && cmds+=(set -g "@thm_$1" "$2" \;); return 0; }
+add bg "$bg"
+add fg "$fg"
+add surface "$surface"
+add muted "$(hex "$(palette 8)")"
+add red "$(hex "$(palette 1)")"
+add green "$(hex "$(palette 2)")"
+add yellow "$(hex "$(palette 3)")"
+add blue "$(hex "$(palette 4)")"
+add magenta "$(hex "$(palette 5)")"
+add cyan "$(hex "$(palette 6)")"
+
+[ ${#cmds[@]} -gt 0 ] && tmux "${cmds[@]}"
