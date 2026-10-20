@@ -34,6 +34,8 @@
 ; include for all repositories inside $HOME/to/group
 [includeIf "gitdir:~/personal-repos/"]
 	path = ~/.personal.gituser
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.personal.gituser
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
