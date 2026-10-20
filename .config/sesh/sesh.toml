@@ -1,0 +1,5 @@
+# sesh: tmux session picker (prefix K). Docs: https://github.com/joshmedeski/sesh
+# Worktrees are created/reopened with workmux (prefix A), not sesh: sesh-created sessions aren't tracked by workmux.
+
+# hidden sessions behind the Alt-f float (regex)
+blacklist = ["-float$"]
