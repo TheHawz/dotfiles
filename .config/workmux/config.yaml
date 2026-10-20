@@ -1,0 +1,17 @@
+mode: session
+
+nerdfont: true
+agent: claude
+
+# new worktrees branch from the repo's main branch, not whatever is checked out
+base_branch: auto
+merge_strategy: rebase
+
+# .tmux.conf renders @workmux_status inside its own themed window tabs
+status_format: false
+
+panes:
+  - command: <agent>
+    focus: true
+  - command: nvim .
+    split: horizontal
