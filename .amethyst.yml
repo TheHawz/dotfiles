@@ -105,7 +105,7 @@ window-margins: true
 window-margin-size: 8
 screen-padding-left: 0
 screen-padding-right: 0
-screen-padding-top: 25
+screen-padding-top: 0
 screen-padding-bottom: 0
 disable-padding-on-builtin-display: true
 
@@ -118,6 +118,7 @@ floating:
   - com.jetbrains.datagrip
   - com.jetbrains.pycharm
   - com.mitchellh.ghostty
+  - net.kovidgoyal.kitty
   - com.spotify.client
 
 mouse-follows-focus: false
