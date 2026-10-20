@@ -38,8 +38,14 @@ fpath=(~/.zsh/completions $fpath)
 autoload -Uz compinit && compinit
 eval "$(zoxide init zsh --cmd cd)"
 eval "$(uv generate-shell-completion zsh)"
+eval "$(workmux completions zsh)"
 export PATH="$HOME/bin:$PATH"
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config ~/.config/ohmyposh/zen.toml)"
+fi
+
+if [ "$TERM_PROGRAM" = "ghostty" ]; then
+  export KITTY_WINDOW_ID=1  # image.nvim compat
+  export SNACKS_GHOSTTY=true
 fi
