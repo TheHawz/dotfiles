@@ -23,7 +23,11 @@ install_to fuzzel.ini     "$HOME/.config/fuzzel/fuzzel.ini"
 install_to mako           "$HOME/.config/mako/config"
 install_to hyprlock.conf  "$HOME/.config/hypr/hyprlock.conf"
 install_to btop.theme     "$HOME/.config/btop/themes/mytheme.theme"
-install_to neovim.lua     "$HOME/.config/nvim/lua/theme.lua"
+
+# nvim no esta en esta lista a proposito: su config es un submodulo
+# compartido con el Mac (kickstart), asi que escribir ahi ensuciaria ese
+# repo. Fija kanso-ink por su cuenta, que es el tema que renderiza esta
+# paleta, de modo que acaba en el mismo sitio sin acoplarse.
 
 # ── Zen Browser ───────────────────────────────────────────────────────────
 # El perfil bueno lo dice installs.ini, no el Default=1 de profiles.ini:

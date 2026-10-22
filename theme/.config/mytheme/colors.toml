@@ -1,37 +1,46 @@
+# Kanso Ink.
+#
+# La fuente autoritativa es kitty/.config/kitty/kanso-ink.conf, que es el
+# mismo tema que usa nvim (kickstart fija colorscheme 'kanso-ink'). De ahi
+# salen tal cual: background, foreground, selection y los dieciseis colores.
+# Lo demas son tonos derivados, y se indica de donde.
+
 mode = "dark"
 
-accent    = "#d0986c"
-selection = "#3a3327"
-muted     = "#867d71"
+accent    = "#8ba4b0"   # el azul de kanso (active_tab_background)
+selection = "#22262d"   # selection_background del tema
+muted     = "#8a8d8b"   # entre dark_foreground y el fondo
 
-background         = "#0b0d11"
-dark_background    = "#07090b"
-darker_background  = "#040507"
-lighter_background = "#181c23"
+background         = "#14171d"   # del tema
+dark_background    = "#0f1116"   # un escalon por debajo
+darker_background  = "#0a0c10"   # dos escalones por debajo
+lighter_background = "#1d2027"   # entre background y selection
 
-foreground        = "#f2ece2"
-dark_foreground   = "#8f887e"
-light_foreground  = "#dcd5cb"
-bright_foreground = "#fdfbf7"
+foreground        = "#c5c9c7"   # del tema
+dark_foreground   = "#a4a7a4"   # color8, el gris de comentarios de kanso
+light_foreground  = "#d4d7d5"   # un escalon por encima
+bright_foreground = "#e8eae9"   # dos escalones por encima
 
-hyprland_active_border   = "rgba(dabca1ee) rgba(c07641ee) 45deg"
-hyprland_inactive_border = "rgba(2c2c31aa)"
+# El borde activo va de un azul claro al de acento; el inactivo es la
+# selection con alfa, para que una ventana sin foco no grite.
+hyprland_active_border   = "rgba(a8c0ccee) rgba(6a8894ee) 45deg"
+hyprland_inactive_border = "rgba(22262daa)"
 
-red     = "#c2603f"
-orange  = "#d0986c"
-yellow  = "#e0b355"
-green   = "#93a17c"
-cyan    = "#7d9aa3"
-blue    = "#7089a8"
-magenta = "#b0879a"
-brown   = "#6a4933"
+red     = "#c4746e"   # color1
+orange  = "#c4937c"   # kanso no trae naranja: punto medio de red y yellow
+yellow  = "#c4b28a"   # color3
+green   = "#8a9a7b"   # color2
+cyan    = "#8ea4a2"   # color6
+blue    = "#8ba4b0"   # color4
+magenta = "#a292a3"   # color5
+brown   = "#8a7059"   # derivado: yellow oscurecido hacia el fondo
 
-bright_red     = "#d97551"
-bright_yellow  = "#f0c86b"
-bright_green   = "#a8b590"
-bright_cyan    = "#94b0b8"
-bright_blue    = "#879fbd"
-bright_magenta = "#c69bad"
+bright_red     = "#e46876"   # color9
+bright_yellow  = "#e6c384"   # color11
+bright_green   = "#87a987"   # color10
+bright_cyan    = "#7aa89f"   # color14
+bright_blue    = "#7fb4ca"   # color12
+bright_magenta = "#938aa9"   # color13
 
 # Geometria (no son colores, pero el motor los pasa igual)
 radius = "8"
