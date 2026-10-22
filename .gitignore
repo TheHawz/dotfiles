@@ -1,4 +1,9 @@
+# Backups con fecha que dejan los pasos de migracion
 *.bak.*
+
+# macOS
+.DS_Store
+**/karabiner/automatic_backups
 
 # Artefactos generados por apply-theme.sh — la fuente son las plantillas
 hypr/.config/hypr/hyprlock.conf

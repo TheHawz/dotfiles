@@ -1,0 +1,14 @@
+theme = Kanso Ink
+font-family = JetBrains Mono
+window-padding-x = 8
+window-padding-y = 8
+cursor-style = bar
+cursor-style-blink = false
+mouse-hide-while-typing = true
+
+macos-option-as-alt = left
+macos-titlebar-style = hidden
+
+shell-integration = zsh
+copy-on-select = clipboard
+window-decoration = true

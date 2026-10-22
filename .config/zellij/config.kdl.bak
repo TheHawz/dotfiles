@@ -1,0 +1,340 @@
+// Configuración de Zellij 0.44.1
+// Diseño: zellij captura SOLO Ctrl+g (líder), todo lo demás pasa al terminal
+// Los accesos rápidos Alt están disponibles en todos los modos
+
+default_mode "locked"
+
+keybinds clear-defaults=true {
+    // === MODO BLOQUEADO (LOCKED) ===
+    // Único punto de captura: Ctrl+g abre el menú
+    // Alt+* están disponibles en este modo y todos los demás
+    locked {
+        bind "Ctrl g" { SwitchToMode "Normal"; }
+
+        // Defensa en profundidad: aunque shared_except ya cubre "locked"
+        // (verificado leyendo zellij-utils/src/kdl/mod.rs: Keybinds::from_kdl
+        // itera sobre TODOS los InputMode salvo los excluidos, y "locked" no
+        // está en la lista de exclusión de este shared_except), duplicamos
+        // aquí explícitamente los accesos Alt más importantes. Esto es
+        // intencionalmente redundante con el bloque shared_except de más
+        // abajo: si algo cambia ahí, este modo sigue funcionando.
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt Down" { MoveFocus "Down"; }
+        bind "Alt Up" { MoveFocus "Up"; }
+        bind "Alt H" { MovePane "Left"; }
+        bind "Alt J" { MovePane "Down"; }
+        bind "Alt K" { MovePane "Up"; }
+        bind "Alt L" { MovePane "Right"; }
+        bind "Shift Left" { GoToPreviousTab; }
+        bind "Shift Right" { GoToNextTab; }
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+        bind "Alt Enter" { NewPane; }
+        bind "Alt z" { ToggleFocusFullscreen; }
+        bind "Alt Space" { ToggleFloatingPanes; }
+    }
+
+    // === MENÚ NORMAL ===
+    // Letra simple para acceder a cada sub-modo
+    // g / Esc devuelven a locked
+    normal {
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Entrar en sub-modos con letras simples
+        bind "p" { SwitchToMode "Pane"; }
+        bind "t" { SwitchToMode "Tab"; }
+        bind "r" { SwitchToMode "Resize"; }
+        bind "m" { SwitchToMode "Move"; }
+        bind "s" { SwitchToMode "Scroll"; }
+        bind "o" { SwitchToMode "Session"; }
+
+        // Ayuda (cheatsheet). "a" es tecla directa en teclado es_ES;
+        // "?" se mantiene como alias (allí es Shift+').
+        bind "a" "?" {
+            Run "bash" "-c" "glow -p ~/.config/zellij/cheatsheet.md" {
+                floating true
+                name "keys"
+                close_on_exit true
+            }
+            SwitchToMode "Locked"
+        }
+    }
+
+    // === MODO PANEL (PANE) ===
+    // Navegación con hjkl/flechas, crear, cerrar, renombrar, fullscreen, etc.
+    pane {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Navegar entre paneles
+        bind "h" { MoveFocus "Left"; SwitchToMode "Locked"; }
+        bind "j" { MoveFocus "Down"; SwitchToMode "Locked"; }
+        bind "k" { MoveFocus "Up"; SwitchToMode "Locked"; }
+        bind "l" { MoveFocus "Right"; SwitchToMode "Locked"; }
+        bind "Left" { MoveFocus "Left"; SwitchToMode "Locked"; }
+        bind "Down" { MoveFocus "Down"; SwitchToMode "Locked"; }
+        bind "Up" { MoveFocus "Up"; SwitchToMode "Locked"; }
+        bind "Right" { MoveFocus "Right"; SwitchToMode "Locked"; }
+
+        // Crear, cerrar, manipular paneles
+        bind "n" { NewPane; SwitchToMode "Locked"; }
+        bind "d" { NewPane "Down"; SwitchToMode "Locked"; }
+        bind "r" { NewPane "Right"; SwitchToMode "Locked"; }
+        bind "x" { CloseFocus; SwitchToMode "Locked"; }
+        bind "f" { ToggleFocusFullscreen; SwitchToMode "Locked"; }
+        bind "w" { ToggleFloatingPanes; SwitchToMode "Locked"; }
+        bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Locked"; }
+        bind "z" { TogglePaneFrames; SwitchToMode "Locked"; }
+        bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0; }
+    }
+
+    // === MODO TAB ===
+    // Navegar, crear, cerrar, renombrar tabs
+    tab {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Navegar entre tabs
+        bind "h" { GoToPreviousTab; SwitchToMode "Locked"; }
+        bind "l" { GoToNextTab; SwitchToMode "Locked"; }
+        bind "Left" { GoToPreviousTab; SwitchToMode "Locked"; }
+        bind "Right" { GoToNextTab; SwitchToMode "Locked"; }
+
+        // Crear, cerrar, manipular tabs
+        bind "n" { NewTab; SwitchToMode "Locked"; }
+        bind "x" { CloseTab; SwitchToMode "Locked"; }
+        bind "r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+        bind "Tab" { ToggleTab; SwitchToMode "Locked"; }
+        bind "s" { ToggleActiveSyncTab; SwitchToMode "Locked"; }
+
+        // Saltar a tab específico
+        bind "1" { GoToTab 1; SwitchToMode "Locked"; }
+        bind "2" { GoToTab 2; SwitchToMode "Locked"; }
+        bind "3" { GoToTab 3; SwitchToMode "Locked"; }
+        bind "4" { GoToTab 4; SwitchToMode "Locked"; }
+        bind "5" { GoToTab 5; SwitchToMode "Locked"; }
+        bind "6" { GoToTab 6; SwitchToMode "Locked"; }
+        bind "7" { GoToTab 7; SwitchToMode "Locked"; }
+        bind "8" { GoToTab 8; SwitchToMode "Locked"; }
+        bind "9" { GoToTab 9; SwitchToMode "Locked"; }
+    }
+
+    // === MODO REDIMENSIÓN (RESIZE) ===
+    // Ajustar tamaños de paneles. Modo "repetible": las acciones NO vuelven
+    // a locked (se pulsa varias veces seguidas); sal con g / Esc.
+    // Direcciones verificadas contra los defaults de zellij
+    // (zellij setup --dump-config).
+    resize {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Aumentar con hjkl/flechas
+        bind "h" { Resize "Increase Left"; }
+        bind "j" { Resize "Increase Down"; }
+        bind "k" { Resize "Increase Up"; }
+        bind "l" { Resize "Increase Right"; }
+        bind "Left" { Resize "Increase Left"; }
+        bind "Down" { Resize "Increase Down"; }
+        bind "Up" { Resize "Increase Up"; }
+        bind "Right" { Resize "Increase Right"; }
+
+        // Disminuir con Shift+hjkl (mayúsculas)
+        bind "H" { Resize "Decrease Left"; }
+        bind "J" { Resize "Decrease Down"; }
+        bind "K" { Resize "Decrease Up"; }
+        bind "L" { Resize "Decrease Right"; }
+
+        // Atajos rápidos
+        bind "=" { Resize "Increase"; }
+        bind "+" { Resize "Increase"; }
+        bind "-" { Resize "Decrease"; }
+    }
+
+    // === MODO MOVER (MOVE) ===
+    // Desplazar paneles a otras posiciones. Modo "repetible": las acciones
+    // NO vuelven a locked; sal con g / Esc.
+    move {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Mover panel con hjkl/flechas
+        bind "h" { MovePane "Left"; }
+        bind "j" { MovePane "Down"; }
+        bind "k" { MovePane "Up"; }
+        bind "l" { MovePane "Right"; }
+        bind "Left" { MovePane "Left"; }
+        bind "Down" { MovePane "Down"; }
+        bind "Up" { MovePane "Up"; }
+        bind "Right" { MovePane "Right"; }
+    }
+
+    // === MODO SCROLL ===
+    // Desplazarse por el histórico del panel. Modo "repetible": las
+    // acciones de scroll NO vuelven a locked; sal con g / Esc.
+    scroll {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Desplazamiento
+        bind "j" { ScrollDown; }
+        bind "k" { ScrollUp; }
+        bind "Down" { ScrollDown; }
+        bind "Up" { ScrollUp; }
+        bind "d" { HalfPageScrollDown; }
+        bind "u" { HalfPageScrollUp; }
+        bind "PageDown" { PageScrollDown; }
+        bind "PageUp" { PageScrollUp; }
+
+        // Editar/buscar en scroll (estas sí son de un solo disparo, pero no
+        // hay "vuelta a locked" que tenga sentido: Editar abre $EDITOR y
+        // buscar entra en EnterSearch)
+        bind "e" { EditScrollback; }
+        bind "/" { SwitchToMode "EnterSearch"; SearchInput 0; }
+    }
+
+    // === MODO BÚSQUEDA (SEARCH) ===
+    // Navegar resultados de búsqueda en scrollback. Modo "repetible": ya no
+    // vuelve a locked tras cada pulsación; sal con g / Esc.
+    search {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Navegar en scroll mientras buscas
+        bind "j" { ScrollDown; }
+        bind "k" { ScrollUp; }
+        bind "Down" { ScrollDown; }
+        bind "Up" { ScrollUp; }
+
+        // Navegar resultados
+        bind "n" { Search "down"; }
+        bind "N" { Search "up"; }
+    }
+
+    // === MODO INGRESO DE BÚSQUEDA (ENTERSEARCH) ===
+    // Escribir el patrón a buscar (no incluir en shared_except)
+    entersearch {
+        bind "Esc" { SwitchToMode "Scroll"; }
+        bind "Enter" { SwitchToMode "Search"; }
+    }
+
+    // === MODO SESIÓN (SESSION) ===
+    // Detach, plugins, salir
+    session {
+        // Retornar a locked
+        bind "g" { SwitchToMode "Locked"; }
+        bind "Esc" { SwitchToMode "Locked"; }
+
+        // Acciones de sesión
+        bind "d" { Detach; }
+        bind "w" { LaunchOrFocusPlugin "session-manager" { floating true; move_to_focused_tab true; }; SwitchToMode "Locked"; }
+        bind "c" { LaunchOrFocusPlugin "configuration" { floating true; }; SwitchToMode "Locked"; }
+        bind "p" { LaunchOrFocusPlugin "plugin-manager" { floating true; }; SwitchToMode "Locked"; }
+        bind "q" { Quit; }
+    }
+
+    // === MODO RENOMBRAR PANEL (RENAMEPANE) ===
+    // Escribir nuevo nombre (no incluir en shared_except para permitir entrada)
+    renamepane {
+        bind "Esc" { UndoRenamePane; SwitchToMode "Pane"; }
+        bind "Enter" { SwitchToMode "Locked"; }
+    }
+
+    // === MODO RENOMBRAR TAB (RENAMETAB) ===
+    // Escribir nuevo nombre (no incluir en shared_except para permitir entrada)
+    renametab {
+        bind "Esc" { UndoRenameTab; SwitchToMode "Tab"; }
+        bind "Enter" { SwitchToMode "Locked"; }
+    }
+
+    // === ACCESOS RÁPIDOS ALT (DISPONIBLES EN TODOS LOS MODOS) ===
+    //
+    // NO usamos estas, porque zsh las tiene para cosas de uso frecuente:
+    //   Alt+f/b  forward-word / backward-word     Alt+d  kill-word
+    //   Alt+t    transpose-words                  Alt+w  copy-region-as-kill
+    //   Alt+p/n  history-search-backward/forward  Alt+.  insert-last-word
+    //   Alt+x    execute-named-cmd
+    //
+    // Las que SÍ usamos y pisan un binding de zsh (todos de uso marginal):
+    //   Alt+h    pisa run-help
+    //   Alt+l    pisa down-case-word
+    //   Alt+z    pisa execute-last-named-cmd
+    //   Alt+Space pisa expand-history
+    //   Alt+-    pisa neg-argument
+    //   Alt+1..9 pisan digit-argument
+    // Libres de conflicto: Alt+j, Alt+k, Alt+[, Alt+], Alt+=, Alt+Enter
+    shared_except "renamepane" "renametab" "entersearch" {
+        // Navegar paneles con Alt+hjkl o flechas
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt Down" { MoveFocus "Down"; }
+        bind "Alt Up" { MoveFocus "Up"; }
+
+        // Mover panel actual
+        bind "Alt H" { MovePane "Left"; }
+        bind "Alt J" { MovePane "Down"; }
+        bind "Alt K" { MovePane "Up"; }
+        bind "Alt L" { MovePane "Right"; }
+
+        // Navegar tabs
+        bind "Shift Left" { GoToPreviousTab; }
+        bind "Shift Right" { GoToNextTab; }
+
+        // Saltar a tab específico
+        bind "Alt 1" { GoToTab 1; }
+        bind "Alt 2" { GoToTab 2; }
+        bind "Alt 3" { GoToTab 3; }
+        bind "Alt 4" { GoToTab 4; }
+        bind "Alt 5" { GoToTab 5; }
+        bind "Alt 6" { GoToTab 6; }
+        bind "Alt 7" { GoToTab 7; }
+        bind "Alt 8" { GoToTab 8; }
+        bind "Alt 9" { GoToTab 9; }
+
+        // Acciones rápidas
+        bind "Alt Enter" { NewPane; }
+        bind "Alt z" { ToggleFocusFullscreen; }
+        bind "Alt Space" { ToggleFloatingPanes; }
+
+        // Ayuda (cheatsheet), confirmado con `zellij setup --check`: la acción
+        // Run SÍ existe en 0.44.1. No cambia de modo (igual que el resto de
+        // este bloque): puedes abrirla desde cualquier sitio sin perder tu
+        // sitio en el menú.
+    }
+}
+
+// === CONFIGURACIÓN GENERAL ===
+default_layout "default"
+theme "catppuccin-macchiato"
+
+// Soporte de ratón
+mouse_mode true
+
+// Copiar al portapapeles del sistema en macOS
+copy_command "pbcopy"
+copy_on_select true
+
+// Persistencia de sesión
+session_serialization true
+
+// Interfaz simplificada
+pane_frames false
+simplified_ui true

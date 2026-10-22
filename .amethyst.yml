@@ -1,0 +1,132 @@
+layouts:
+  - tall
+  - center-master
+  - floating
+
+mod1:
+  - control
+  - shift
+
+# Focus
+focus-ccw:
+  mod: mod1
+  key: left
+
+focus-cw:
+  mod: mod1
+  key: right
+
+# Swap
+swap-ccw:
+  mod: mod1
+  key: down
+
+swap-cw:
+  mod: mod1
+  key: up
+
+swap-main:
+  mod: mod1
+  key: enter
+
+# Resize
+shrink-main:
+  mod: mod1
+  key: ','
+
+expand-main:
+  mod: mod1
+  key: '.'
+
+# Layout
+cycle-layout:
+  mod: mod1
+  key: space
+
+toggle-float:
+  mod: mod1
+  key: f
+
+# Throw to space
+throw-space-1:
+  mod: mod1
+  key: '1'
+
+throw-space-2:
+  mod: mod1
+  key: '2'
+
+throw-space-3:
+  mod: mod1
+  key: '3'
+
+throw-space-4:
+  mod: mod1
+  key: '4'
+
+throw-space-5:
+  mod: mod1
+  key: '5'
+
+throw-space-6:
+  mod: mod1
+  key: '6'
+
+throw-space-7:
+  mod: mod1
+  key: '7'
+
+throw-space-8:
+  mod: mod1
+  key: '8'
+
+throw-space-9:
+  mod: mod1
+  key: '9'
+
+# Disable defaults that conflict
+increase-main: false
+decrease-main: false
+
+# Disable everything else
+focus-main: false
+focus-screen-ccw: false
+focus-screen-cw: false
+swap-screen-ccw: false
+swap-screen-cw: false
+toggle-tiling: false
+reevaluate-windows: false
+relaunch-amethyst: false
+select-tall-layout: false
+select-fullscreen-layout: false
+select-floating-layout: false
+
+window-margins: true
+window-margin-size: 8
+screen-padding-left: 0
+screen-padding-right: 0
+screen-padding-top: 0
+screen-padding-bottom: 0
+disable-padding-on-builtin-display: true
+
+floating-is-blacklist: false
+floating:
+  - md.obsidian
+  - org.mozilla.firefox
+  - com.google.Chrome
+  - com.tinyspeck.slackmacgap
+  - com.jetbrains.datagrip
+  - com.jetbrains.pycharm
+  - com.mitchellh.ghostty
+  - net.kovidgoyal.kitty
+  - com.spotify.client
+
+mouse-follows-focus: false
+focus-follows-mouse: false
+new-windows-to-main: false
+follow-space-thrown-windows: true
+enables-layout-hud: true
+enables-layout-hud-on-space-change: true
+restore-layouts-on-launch: true
+float-small-windows: true
+window-resize-step: 5
