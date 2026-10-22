@@ -1,0 +1,18 @@
+[Unit]
+# Metodo de entrada. Lo quiero por las secuencias XCompose, no por CJK.
+# Sustituye a omarchy-fcitx5.service.
+Description=Metodo de entrada (fcitx5)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+# --disable notificationitem: el icono de bandeja lo pinta waybar via tray,
+# y el propio de fcitx5 se duplicaba.
+ExecStart=/usr/bin/fcitx5 --disable notificationitem
+Slice=session.slice
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
