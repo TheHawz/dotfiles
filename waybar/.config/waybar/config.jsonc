@@ -9,7 +9,7 @@
 
     "modules-left": ["custom/menu", "hyprland/workspaces", "hyprland/window"],
     "modules-center": ["mpris", "clock", "hyprland/language"],
-    "modules-right": ["privacy", "idle_inhibitor", "tray", "network", "wireplumber"],
+    "modules-right": ["privacy", "idle_inhibitor", "tray", "network", "pulseaudio"],
 
     "custom/menu": {
       "format": "☰",
@@ -85,11 +85,21 @@
       "on-click": "foot -e nmtui"
     },
 
-    "wireplumber": {
+    // Modulo "pulseaudio" (no "wireplumber"): habla con pipewire-pulse y
+    // resigue el sink por defecto cuando cambia. El modulo wireplumber de
+    // waybar 0.15 se ata al sink del arranque y se queda ahi para siempre.
+    "pulseaudio": {
       "format": "{icon} {volume}%",
       "format-muted": "󰝟",
-      "format-icons": ["󰕿", "󰖀", "󰕾"],
-      "on-click": "swayosd-client --output-volume mute-toggle",
+      "format-icons": {
+        "default": ["󰕿", "󰖀", "󰕾"],
+        "headphone": "󰋋",
+        "headset": "󰋎",
+        "hdmi": "󰡁"
+      },
+      "tooltip-format": "{desc} · {volume}%",
+      "on-click": "foot --app-id=wiremix -e wiremix",
+      "on-click-right": "swayosd-client --output-volume mute-toggle",
       "on-scroll-up": "swayosd-client --output-volume raise",
       "on-scroll-down": "swayosd-client --output-volume lower"
     }

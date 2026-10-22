@@ -155,7 +155,7 @@ window#waybar.widget #custom-updates {
 #tray,
 #bluetooth,
 #network,
-#wireplumber,
+#pulseaudio,
 #cpu,
 #memory,
 #temperature {
@@ -165,7 +165,7 @@ window#waybar.widget #custom-updates {
 
 #bluetooth.connected { color: {{ blue }}; }
 #network.disconnected { color: {{ red }}; }
-#wireplumber.muted { color: {{ muted }}; }
+#pulseaudio.muted { color: {{ muted }}; }
 #temperature.critical { color: {{ red }}; }
 
 tooltip {
