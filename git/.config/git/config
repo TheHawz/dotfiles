@@ -1,0 +1,80 @@
+# Config de git compartida por Linux y macOS.
+#
+# Aqui NO va la identidad: la aporta ~/.config/git/identity, que cada
+# plataforma stowea desde git-linux/ o git-macos/. En Linux es la personal;
+# en el Mac, la del trabajo con la personal como excepcion por directorio.
+#
+# Se usa la ruta XDG (~/.config/git/config) y no ~/.gitconfig a proposito:
+# git lee los dos si existen, y tener ambos es pedir una tarde de depuracion.
+
+[include]
+	path = ~/.config/git/identity
+
+[init]
+	defaultBranch = master
+
+[push]
+	autoSetupRemote = true   # Pone el upstream solo al primer push
+[pull]
+	rebase = true            # Rebase en vez de merge al traer
+
+[diff]
+	algorithm = histogram    # Diffs mas claros en lineas movidas o editadas
+	colorMoved = plain       # Marca los bloques movidos
+	mnemonicPrefix = true    # Prefijos i/ w/ c/ en vez de a/ b/
+[commit]
+	verbose = true           # Mete el diff como comentario en el mensaje
+[column]
+	ui = auto                # Salida en columnas cuando cabe
+[branch]
+	sort = -committerdate    # Ramas por commit mas reciente primero
+[tag]
+	sort = -version:refname  # Ordena 1.10 despues de 1.9, no antes
+[rerere]
+	enabled = true           # Recuerda como resolviste un conflicto
+	autoupdate = true        # Y lo reaplica solo
+
+# No se declara core.excludesFile: sin el, git ya lee ~/.config/git/ignore,
+# que es justo lo que stowea este paquete. Una ruta absoluta menos.
+
+[alias]
+	a = add
+	aa = add --all
+	ap = add --patch
+	b = branch
+	ba = branch --all
+	br = branch --remote
+	c = commit
+	ca = commit --amend
+	ci = commit
+	cm = commit -m
+	cam = commit -am
+	co = checkout
+	df = diff
+	dc = diff --cached
+	f = fetch
+	l = log --date=format:'%b %d, %Y' --pretty=format:'%C(yellow bold)%h%Creset%C(white)%d%Creset %s%n %C(blue)%aN (%cd)%n'
+	lg = log --graph --stat --pretty=format:'%C(yellow bold)%h%Creset%C(white)%d%Creset %s%n %C(blue)%aN (%cd)%n'
+	pl = pull
+	ps = push
+	psf = push --force-with-lease
+	s = status
+	st = status
+	wa = worktree add
+	wl = worktree list
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+# gh resuelto por PATH, no por ruta. Antes esto apuntaba a
+# ~/.local/share/mise/installs/gh/2.99.0/..., clavado a una version: en
+# cuanto mise actualizara gh, se rompia la autenticacion por HTTPS.
+[credential "https://github.com"]
+	helper =
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper =
+	helper = !gh auth git-credential

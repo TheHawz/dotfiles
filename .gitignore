@@ -13,3 +13,6 @@ theme/.config/mytheme/*
 !theme/.config/mytheme/templates/
 !theme/.config/mytheme/bin/
 !theme/.config/mytheme/backgrounds/
+
+# Estado por maquina, no config: la cuenta de gh de cada sitio
+gh/.config/gh/hosts.yml

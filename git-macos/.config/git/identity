@@ -1,0 +1,14 @@
+# Identidad en el Mac del trabajo: la corporativa por defecto, con la
+# personal activada por directorio. Se conserva el comportamiento que ya
+# tenia ~/.gitconfig, incluida la firma GPG.
+[user]
+	name = Pablo Losada
+	email = pablo.losada@socialpoint.es
+	signingkey = 4254188EC2F52F3C
+[commit]
+	gpgsign = true
+
+[includeIf "gitdir:~/personal-repos/"]
+	path = ~/.config/git/identity-personal
+[includeIf "gitdir:~/dotfiles/"]
+	path = ~/.config/git/identity-personal

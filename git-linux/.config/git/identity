@@ -1,0 +1,3 @@
+# Identidad en Linux: personal, sin excepciones. Esta maquina es mia.
+[include]
+	path = ~/.config/git/identity-personal
