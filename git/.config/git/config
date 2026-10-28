@@ -13,6 +13,20 @@
 [init]
 	defaultBranch = master
 
+[merge]
+	conflictStyle = zdiff3   # El conflicto muestra tambien el ancestro comun
+[rebase]
+	autosquash = true        # Aplica solo los commits fixup!/squash!
+	autostash = true         # Guarda y restaura lo no commiteado al rebasear
+[fetch]
+	prune = true             # Borra las ramas locales cuyo remoto ya no existe
+[push]
+	followTags = true        # Sube las tags anotadas junto a los commits
+[submodule]
+	recurse = true           # No dejar el submodulo de nvim desincronizado
+[help]
+	autocorrect = 10         # 'git stauts' -> 'git status' tras 1 segundo
+
 [push]
 	autoSetupRemote = true   # Pone el upstream solo al primer push
 [pull]
@@ -63,6 +77,8 @@
 	wa = worktree add
 	wl = worktree list
 
+# Requiere el binario git-lfs instalado. Con required=true, git NO avisa: FALLA
+# al clonar o hacer checkout de un repo con ficheros LFS. En Arch: git-lfs.
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
