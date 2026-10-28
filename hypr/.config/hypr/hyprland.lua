@@ -35,8 +35,9 @@ hl.config({
   },
 })
 
--- Colores del tema, generados por ~/.config/mytheme/bin/apply-theme.sh
-pcall(dofile, home .. "/.config/mytheme/hyprland.lua")
+-- Paleta (Kanso Ink). Antes la generaba un motor de plantillas; ahora es un
+-- fichero normal, igual que en el Mac.
+require("hypr.colors")
 
 require("hypr.monitors")
 require("hypr.input")

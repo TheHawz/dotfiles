@@ -17,8 +17,8 @@ tmux/.tmux.conf                 ->   ~/.tmux.conf
 
 | Conjunto | Paquetes |
 |---|---|
-| **base** (ambas) | `bin` `fish` `gh` `git` `nvim` `ohmyposh` `sesh` `tmux` `workmux` |
-| **linux** | `bash` `foot` `fuzzel` `git-linux` `hypr` `mako` `systemd` `theme` `waybar` `xdg` |
+| **base** (ambas) | `bin` `btop` `fish` `gh` `git` `nvim` `ohmyposh` `sesh` `tmux` `workmux` |
+| **linux** | `bash` `foot` `fuzzel` `git-linux` `hypr` `librewolf` `mako` `minimeters` `sharepicker` `systemd` `wallpapers` `waybar` `xdg` |
 | **macos** | `amethyst` `git-macos` `ideavim` `jgit` `karabiner` `kitty` `linearmouse` `work` |
 
 No hay ramas por plataforma a propósito. Lo que se toca a diario es justo lo
@@ -75,16 +75,44 @@ depuración.
 - `git-macos` → la del trabajo por defecto, con la personal activada por
   directorio (`~/personal-repos/`, `~/dotfiles/`) y firma GPG.
 
-## El tema (solo Linux)
+## El tema
 
-`theme/` no es un paquete de config normal: es un generador. La fuente son
-`theme/.config/mytheme/colors.toml` y las plantillas de
-`theme/.config/mytheme/templates/`, y `apply-theme.sh` las renderiza sobre
-foot, fuzzel, mako, waybar, hyprlock, btop, obsidian y demás.
+**Kanso Ink**, y la paleta vive en un sitio: `kitty/.config/kitty/kanso-ink.conf`.
+De ahí salen los colores de todo lo demás.
 
-**Los ficheros que genera están en `.gitignore`.** Si quieres cambiar un
-color o un selector, se edita la plantilla; lo que edites en el artefacto
-desaparece en el siguiente `apply-theme.sh`.
+Hubo un motor de plantillas (`apply-theme.sh` sobre un `colors.toml`) que
+renderizaba la paleta a una docena de aplicaciones. Se retiró, por dos
+razones. La primera es que solo existía en Linux: en el Mac los colores ya
+eran ficheros normales, así que el repo tenía dos modelos distintos para lo
+mismo. La segunda es que **el repo no contenía la configuración**: `fuzzel/`
+y `mako/` estaban vacíos y el CSS de waybar y el `hyprlock.conf` estaban en
+`.gitignore`, por ser artefactos generados. Clonar en una máquina nueva no
+daba lanzador, ni notificaciones, ni barra con estilo, ni pantalla de
+bloqueo hasta correr el motor.
+
+Ahora cada aplicación lleva sus colores como un fichero más, versionado:
+
+| Aplicación | Fichero |
+|---|---|
+| foot | `foot/.config/foot/kanso-ink.ini` (vía `include`) |
+| Hyprland | `hypr/.config/hypr/colors.lua` (vía `require`) |
+| waybar | `waybar/.config/waybar/style.css` |
+| fuzzel | `fuzzel/.config/fuzzel/fuzzel.ini` |
+| mako | `mako/.config/mako/config` |
+| hyprlock | `hypr/.config/hypr/hyprlock.conf` |
+| btop | `btop/.config/btop/themes/kanso-ink.theme` |
+| share picker | `sharepicker/.config/hyprland-preview-share-picker/kanso-ink.css` |
+| MiniMeters | `minimeters/.config/MiniMeters/Themes/kanso-ink.ini` |
+| LibreWolf / Zen | `librewolf/.config/librewolf/kanso-ink.css` |
+
+El precio es que cambiar de tema son diez ficheros a mano en vez de uno. Es
+un precio que sale a cuenta cuando se cambia de tema una vez al año.
+
+El CSS del navegador es el único que no coloca stow: el perfil de Firefox
+tiene un nombre aleatorio. Se copia a mano a
+`~/.config/librewolf/librewolf/<perfil>/chrome/mytheme.css` y se engancha con
+una línea `@import url("mytheme.css");` al principio de `userChrome.css`, que
+es un fichero tuyo y no se sobrescribe.
 
 ## Hyprland (solo Linux)
 

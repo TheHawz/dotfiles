@@ -5,14 +5,6 @@
 .DS_Store
 **/karabiner/automatic_backups
 
-# Artefactos generados por apply-theme.sh — la fuente son las plantillas
-hypr/.config/hypr/hyprlock.conf
-waybar/.config/waybar/style.css
-theme/.config/mytheme/*
-!theme/.config/mytheme/colors.toml
-!theme/.config/mytheme/templates/
-!theme/.config/mytheme/bin/
-!theme/.config/mytheme/backgrounds/
 
 # Estado por maquina, no config: la cuenta de gh de cada sitio
 gh/.config/gh/hosts.yml

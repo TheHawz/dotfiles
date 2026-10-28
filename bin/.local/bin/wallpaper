@@ -11,7 +11,7 @@
 set -euo pipefail
 
 LINK="$HOME/.local/state/wallpaper/current"
-DIRS=("$HOME/Pictures/Wallpapers" "$HOME/.config/mytheme/backgrounds")
+DIRS=("$HOME/Pictures/Wallpapers" "$HOME/.local/share/wallpapers")
 
 case "${1:-}" in
   --current|-c)
