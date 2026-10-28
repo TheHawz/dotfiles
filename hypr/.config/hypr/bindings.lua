@@ -64,7 +64,7 @@ hl.bind(mod .. " + ALT + S", hl.dsp.window.move({ workspace = "special:scratchpa
 
 -- ── Aplicaciones ──────────────────────────────────────────────────────────
 hl.bind(mod .. " + RETURN", app("foot"), desc("Terminal"))
-hl.bind(mod .. " + SHIFT + RETURN", app("zen-browser"), desc("Navegador"))
+hl.bind(mod .. " + SHIFT + RETURN", app("librewolf"), desc("Navegador"))
 hl.bind(mod .. " + SHIFT + F", app("nautilus --new-window"), desc("Archivos"))
 hl.bind(mod .. " + SHIFT + W", app("typora --enable-wayland-ime"), desc("Typora"))
 hl.bind(mod .. " + SPACE", run("fuzzel"), desc("Lanzador"))

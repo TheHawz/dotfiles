@@ -29,26 +29,54 @@ install_to btop.theme     "$HOME/.config/btop/themes/mytheme.theme"
 # repo. Fija kanso-ink por su cuenta, que es el tema que renderiza esta
 # paleta, de modo que acaba en el mismo sitio sin acoplarse.
 
-# ── Zen Browser ───────────────────────────────────────────────────────────
-# El perfil bueno lo dice installs.ini, no el Default=1 de profiles.ini:
-# ese puede apuntar a un perfil que no usas.
-zen_root="$HOME/.config/zen"
-if [[ -f $zen_root/installs.ini && -f $THEME_DIR/zen-userChrome.css ]]; then
-  zen_profile=$(sed -n 's/^Default=//p' "$zen_root/installs.ini" | head -1)
-  if [[ -n $zen_profile && -d $zen_root/$zen_profile ]]; then
-    mkdir -p "$zen_root/$zen_profile/chrome"
-    cp "$THEME_DIR/zen-userChrome.css" "$zen_root/$zen_profile/chrome/userChrome.css"
-    echo "    zen-userChrome.css -> perfil '$zen_profile'"
+# ── Navegadores de la familia Firefox ─────────────────────────────────────
+# Mismo mecanismo para Zen y LibreWolf: userChrome.css en el perfil. De las
+# 16 variables de la plantilla solo 5 son de Zen (--zen-*); el resto son
+# estandar (--lwt-*, --toolbar-*) y las respetan las dos.
+#
+# El tema se escribe en chrome/mytheme.css y se IMPORTA desde userChrome.css,
+# en vez de sobrescribirlo: ese fichero es tuyo (ocultar pestanas, radios) y
+# un cp lo borraria en cada aplicacion del tema.
+install_firefox_theme() {
+  local nombre="$1" root="$2"
 
-    # Zen no carga userChrome.css sin esta preferencia.
-    zen_user_js="$zen_root/$zen_profile/user.js"
-    zen_pref='user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);'
-    if ! grep -qF 'legacyUserProfileCustomizations' "$zen_user_js" 2>/dev/null; then
-      echo "$zen_pref" >> "$zen_user_js"
-      echo "    user.js -> personalizacion habilitada (requiere reiniciar Zen)"
+  [[ -f $root/installs.ini && -f $THEME_DIR/zen-userChrome.css ]] || return 0
+
+  # El perfil bueno lo dice installs.ini, no el Default=1 de profiles.ini:
+  # ese puede apuntar a un perfil que no usas.
+  local perfil
+  perfil=$(sed -n 's/^Default=//p' "$root/installs.ini" | head -1)
+  [[ -n $perfil && -d $root/$perfil ]] || return 0
+
+  local chrome="$root/$perfil/chrome"
+  mkdir -p "$chrome"
+  cp "$THEME_DIR/zen-userChrome.css" "$chrome/mytheme.css"
+  echo "    mytheme.css -> $nombre, perfil '$perfil'"
+
+  # Engancharlo desde userChrome.css sin tocar lo que ya hubiera dentro.
+  local uc="$chrome/userChrome.css"
+  local import='@import url("mytheme.css");'
+  if ! grep -qF 'mytheme.css' "$uc" 2>/dev/null; then
+    # { echo; cat; } y no printf "$(cat)": asi se preservan los bytes del
+    # fichero tal cual, incluido el salto de linea final.
+    if [[ -s $uc ]]; then
+      { echo "$import"; cat "$uc"; } >"$uc.tmp" && mv "$uc.tmp" "$uc"
+    else
+      echo "$import" >"$uc"
     fi
+    echo "    userChrome.css -> importa mytheme.css"
   fi
-fi
+
+  # Sin esta preferencia no se carga ningun userChrome.css.
+  local user_js="$root/$perfil/user.js"
+  if ! grep -qF 'legacyUserProfileCustomizations' "$user_js" 2>/dev/null; then
+    echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >>"$user_js"
+    echo "    user.js -> personalizacion habilitada (reinicia $nombre)"
+  fi
+}
+
+install_firefox_theme "LibreWolf" "$HOME/.config/librewolf/librewolf"
+install_firefox_theme "Zen"       "$HOME/.config/zen"
 
 # ── MiniMeters ────────────────────────────────────────────────────────────
 mm_themes="$HOME/.config/MiniMeters/Themes"
