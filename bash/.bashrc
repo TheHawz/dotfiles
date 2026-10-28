@@ -11,6 +11,12 @@ HISTCONTROL=ignoreboth
 HISTSIZE=32768
 HISTFILESIZE="$HISTSIZE"
 
+# ── Teclas ────────────────────────────────────────────────────────────────
+# Arriba/abajo buscan por prefijo, igual que en fish. history-search-backward
+# filtra por lo ya escrito; el reverse-search-history por defecto no.
+bind '"\e[A": history-search-backward' 2>/dev/null
+bind '"\e[B": history-search-forward' 2>/dev/null
+
 # ── Completado ────────────────────────────────────────────────────────────
 if [[ ! -v BASH_COMPLETION_VERSINFO && -f /usr/share/bash-completion/bash_completion ]]; then
   source /usr/share/bash-completion/bash_completion

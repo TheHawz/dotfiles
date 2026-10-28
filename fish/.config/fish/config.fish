@@ -24,5 +24,16 @@ if status is-interactive
     # CTRL+X CTRL+E, que es lo que tenía en zsh.
     bind \cx\ce edit_command_buffer
 
+    # Arriba/abajo buscan en el historial por PREFIJO: escribo "tmux", pulso
+    # arriba y recorro solo los comandos que empiezan por "tmux".
+    #
+    # Se declara en vez de confiar en el default de fish, que ha cambiado de
+    # nombre entre versiones (up-or-search, luego up-line) y no es el mismo en
+    # las dos maquinas. El precio es perder la navegacion por lineas en
+    # comandos multilinea; para eso esta ALT+flechas y el CTRL+X CTRL+E de
+    # arriba, que abre la linea entera en nvim.
+    bind up   history-prefix-search-backward
+    bind down history-prefix-search-forward
+
     set -g fish_greeting
 end
