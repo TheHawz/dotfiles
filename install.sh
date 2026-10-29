@@ -21,7 +21,7 @@ DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # ── Paquetes ──────────────────────────────────────────────────────────────
 
 # Las dos maquinas
-BASE="bin btop fish gh git nvim ohmyposh sesh tmux workmux"
+BASE="bin btop claude fish gh git nvim ohmyposh sesh tmux workmux"
 
 # Solo este PC: Arch + Hyprland
 LINUX="bash foot fuzzel git-linux hypr librewolf mako minimeters sharepicker systemd wallpapers waybar xdg"
